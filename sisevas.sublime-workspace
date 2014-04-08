@@ -1,0 +1,697 @@
+{
+	"auto_complete":
+	{
+		"selected_items":
+		[
+			[
+				"PRIN",
+				"print_r"
+			],
+			[
+				"idtip",
+				"idtipo_documento"
+			],
+			[
+				"iddo",
+				"idtipodocumento"
+			],
+			[
+				"pinr",
+				"print_r"
+			],
+			[
+				"idperson",
+				"idpersonal"
+			],
+			[
+				"sr",
+				"script	Tag"
+			],
+			[
+				"mar",
+				"margin-top"
+			],
+			[
+				"ma",
+				"margin-bottom"
+			],
+			[
+				"op",
+				"option	Tag"
+			],
+			[
+				"els",
+				"else"
+			],
+			[
+				"fe",
+				"fetch"
+			],
+			[
+				"proce",
+				"procedimiento"
+			],
+			[
+				"fon",
+				"font-weight"
+			],
+			[
+				"co",
+				"color"
+			],
+			[
+				"wi",
+				"width"
+			],
+			[
+				"IF",
+				"if"
+			],
+			[
+				"con",
+				"consultorio"
+			],
+			[
+				"fo",
+				"foreach	foreach …"
+			],
+			[
+				"A",
+				"ASC"
+			],
+			[
+				"AB",
+				"absoluto"
+			],
+			[
+				"ab",
+				"absoluto"
+			],
+			[
+				"R",
+				"Rpta"
+			],
+			[
+				"s",
+				"span	Tag"
+			],
+			[
+				"in",
+				"input"
+			],
+			[
+				"ti",
+				"TipoExamen"
+			],
+			[
+				"ob",
+				"observacion"
+			],
+			[
+				"carg",
+				"cargar_farmaco"
+			],
+			[
+				"indi",
+				"indicaciones"
+			],
+			[
+				"fre",
+				"frecuencia"
+			],
+			[
+				"cant",
+				"cantidad"
+			],
+			[
+				"id",
+				"idvia"
+			],
+			[
+				"ex",
+				"explode"
+			],
+			[
+				"ut",
+				"utf-8"
+			],
+			[
+				"utf",
+				"utf8_encode"
+			],
+			[
+				"idtipo",
+				"idtipo_llegada"
+			],
+			[
+				"far",
+				"farmaco"
+			],
+			[
+				"Des",
+				"DesBloquear"
+			],
+			[
+				"la",
+				"label	Tag"
+			],
+			[
+				"Fech",
+				"Fecha_server"
+			],
+			[
+				"le",
+				"left"
+			],
+			[
+				"fun",
+				"function"
+			],
+			[
+				"famra",
+				"farmaco"
+			],
+			[
+				"font",
+				"font-size"
+			],
+			[
+				"SLECT",
+				"socket_select"
+			],
+			[
+				"ided",
+				"IdDet"
+			],
+			[
+				"vl",
+				"valor"
+			],
+			[
+				"fetchALL",
+				"fetchAll"
+			],
+			[
+				"fetch",
+				"fetchAll"
+			],
+			[
+				"ro",
+				"rows3"
+			],
+			[
+				"print",
+				"print_r"
+			],
+			[
+				"fech",
+				"fetchAll"
+			]
+		]
+	},
+	"buffers":
+	[
+		{
+			"file": "lib/Spdo.php",
+			"settings":
+			{
+				"buffer_size": 673,
+				"line_ending": "Windows"
+			}
+		}
+	],
+	"build_system": "",
+	"command_palette":
+	{
+		"height": 0.0,
+		"selected_items":
+		[
+		],
+		"width": 0.0
+	},
+	"console":
+	{
+		"height": 0.0,
+		"history":
+		[
+		]
+	},
+	"distraction_free":
+	{
+		"menu_visible": true,
+		"show_minimap": false,
+		"show_open_files": false,
+		"show_tabs": false,
+		"side_bar_visible": false,
+		"status_bar_visible": false
+	},
+	"file_history":
+	[
+		"/C/xampp/htdocs/sisevas/lib/Spdo.php",
+		"/C/xampp/htdocs/sisevas/model/envio.php",
+		"/C/xampp/htdocs/sisevas/controller/envioController.php",
+		"/C/xampp/htdocs/sisevas/view/envio/_form.php",
+		"/C/xampp/htdocs/sisevas/template/layout.php",
+		"/C/xampp/htdocs/sisevas/web/js/js-layout.js",
+		"/C/xampp/htdocs/sisevas/web/js/app/evt_form_envio.js",
+		"/C/xampp/htdocs/sisevas/view/tipodocumento/_informerec.php",
+		"/C/xampp/htdocs/sisevas/model/ventas.php",
+		"/C/xampp/htdocs/sisevas/view/correlativos/_form.php",
+		"/C/xampp/htdocs/sisevas/controller/tipodocumentoController.php",
+		"/C/xampp/htdocs/sisevas/model/tipodocumento.php",
+		"/C/xampp/htdocs/imi/ajax/NroReciboEgre.php",
+		"/C/xampp/htdocs/sisevas/model/correlativos.php",
+		"/C/xampp/htdocs/sisevas/web/css/layout.css",
+		"/C/xampp/htdocs/sisevas/web/js/app/evt_form_correlativos.js",
+		"/C/xampp/htdocs/sisevas/web/js/app/evt_form_produccion.js",
+		"/C/xampp/htdocs/sisevas/web/js/app/evt_form_cierre.js",
+		"/C/xampp/htdocs/sisevas/controller/personalController.php",
+		"/C/xampp/htdocs/sisevas/model/personal.php",
+		"/C/xampp/htdocs/sisevas/lib/class.upload.php",
+		"/C/xampp/htdocs/sisevas/view/personal/_form.php",
+		"/C/xampp/htdocs/sisevas/web/js/app/evt_form_personal.js",
+		"/C/xampp/htdocs/sisevas/view/tipodocumento/_servicio.php",
+		"/C/xampp/htdocs/sisevas/controller/clientesController.php",
+		"/C/xampp/htdocs/sisevas/model/clientes.php",
+		"/C/xampp/htdocs/sisevas/model/cargo.php",
+		"/C/xampp/htdocs/sisevas/model/produccion.php",
+		"/C/xampp/htdocs/sisevas/web/js/app/evt_form_cargo.js",
+		"/C/xampp/htdocs/sisevas/web/css/style_forms.css",
+		"/C/xampp/htdocs/sisevas/web/js/app/evt_form_proformas.js",
+		"/C/xampp/htdocs/sisevas/controller/tipoproblemaController.php",
+		"/C/xampp/htdocs/sisevas/model/tipoproblema.php",
+		"/C/xampp/htdocs/sisevas/model/subproductosemi.php",
+		"/C/xampp/htdocs/sisevas/controller/subproductosemiController.php",
+		"/C/xampp/htdocs/sisevas/view/produccion/_form.php",
+		"/C/xampp/htdocs/sisevas/controller/produccionController.php",
+		"/C/xampp/htdocs/sisevas/controller/cargoController.php",
+		"/C/xampp/htdocs/sisevas/controller/userController.php",
+		"/C/xampp/htdocs/sisevas/web/css/reset.css",
+		"/C/xampp/htdocs/sisevas/view/tipoproblema/_form.php",
+		"/C/xampp/htdocs/sisevas/web/css/cssmenu.css",
+		"/C/xampp/htdocs/sisevas/controller/formapagoController.php",
+		"/C/xampp/htdocs/sisevas/web/css/jquery-ui-1.10.3.custom.min.css",
+		"/C/xampp/htdocs/sisevas/model/hojaruta.php",
+		"/C/xampp/htdocs/sisevas/view/tipodocumento/_memorando.php",
+		"/C/xampp/htdocs/sisevas/web/css/ui.jqgrid.css",
+		"/C/xampp/htdocs/sisevas/web/css/font-awesome.min.css",
+		"/C/xampp/htdocs/sisevas/controller/cierreController.php",
+		"/C/xampp/htdocs/sisevas/model/cierre.php",
+		"/C/xampp/htdocs/sisevas/view/cierre/_form.php",
+		"/C/xampp/htdocs/sisevas/controller/lineaController.php",
+		"/C/xampp/htdocs/sisevas/controller/cajaController.php",
+		"/C/xampp/htdocs/sisevas/model/proformas.php",
+		"/C/xampp/htdocs/sisevas/controller/ventasController.php",
+		"/C/xampp/htdocs/sisevas/view/cargo/_form.php",
+		"/C/xampp/htdocs/sisevas/web/js/app/evt_index_ventas.js",
+		"/C/xampp/htdocs/sisevas/web/js/app/evt_form_hojaruta.js",
+		"/C/xampp/htdocs/sisevas/controller/correlativosController.php",
+		"/C/xampp/htdocs/sisevas/web/css/style.css",
+		"/C/xampp/htdocs/sisevas/view/grado/_form.php",
+		"/C/xampp/htdocs/sisevas/controller/maderbaController.php",
+		"/C/xampp/htdocs/sisevas/view/tipodocumento/_form.php",
+		"/C/xampp/htdocs/sisevas/web/js/app/evt_form_tipodocumento.js",
+		"/C/xampp/htdocs/sisevas/web/login.php",
+		"/C/xampp/htdocs/sisevas/web/css/login.css",
+		"/C/xampp/htdocs/sisevas/web/index.php",
+		"/C/xampp/htdocs/siseva/hc/personal/guardar.php",
+		"/C/xampp/htdocs/siseva/include/main.php",
+		"/C/xampp/htdocs/siseva/admin/pantallas.php",
+		"/C/xampp/htdocs/siseva/admin/index.php",
+		"/C/xampp/htdocs/siseva/seleccionSistema.php",
+		"/C/xampp/htdocs/siseva/config.php",
+		"/C/xampp/htdocs/corpmedic/laboratorio/hc/save.php",
+		"/C/xampp/htdocs/corpmedic/laboratorio/hc/mantenimiento.php",
+		"/C/xampp/htdocs/corpmedic/hc/hc/mantenimiento.php",
+		"/C/xampp/htdocs/corpmedic/hc/hc/save.php",
+		"/C/xampp/htdocs/corpmedic/hc/hc/script.js",
+		"/C/xampp/htdocs/corpmedic/buscar/Procedimiento.php",
+		"/C/Users/NTC/AppData/Roaming/Sublime Text 3/Packages/User/Preferences.sublime-settings",
+		"/C/xampp/htdocs/corpmedic/config.php",
+		"/C/xampp/htdocs/corpmedic/hc/exa_derivado/mantenimiento.php",
+		"/C/xampp/htdocs/corpmedic/biclinic/acdata/index.php",
+		"/C/xampp/htdocs/corpmedic/biclinic/index.php",
+		"/C/xampp/htdocs/corpmedic/biclinic/index1.php",
+		"/C/xampp/htdocs/corpmedic/hc/hc/index.php",
+		"/C/xampp/htdocs/corpmedic/hc/antecedente/index.php",
+		"/C/xampp/htdocs/corpmedic/caja/pagosxcaja/mantenimiento.php",
+		"/C/xampp/htdocs/corpmedic/buscar/Concepto.php",
+		"/C/xampp/htdocs/corpmedic/clases/dConcepto.php",
+		"/C/xampp/htdocs/corpmedic/clases/dContribuyente.php",
+		"/C/xampp/htdocs/corpmedic/buscar/Contribuyente.php",
+		"/C/xampp/htdocs/corpmedic/caja/pagosxcaja/script.js",
+		"/C/xampp/htdocs/corpmedic/buscar/Examen.php",
+		"/C/xampp/htdocs/corpmedic/caja/pagosxcaja/index.php",
+		"/C/xampp/htdocs/corpmedic/buscar/Consultorio.php",
+		"/C/xampp/htdocs/corpmedic/buscar/Enfermedad.php",
+		"/C/xampp/htdocs/corpmedic/hc/exa_derivado/index.php",
+		"/C/xampp/htdocs/corpmedic/admision/tipo_pago/index.php",
+		"/C/xampp/htdocs/corpmedic/hc/tipo_examen/guardar.php",
+		"/C/xampp/htdocs/corpmedic/autocompletar/paciente_dni.php",
+		"/C/xampp/htdocs/corpmedic/hc/exa_derivado/Imprimir.php",
+		"/C/xampp/htdocs/corpmedic/laboratorio/resexamen/index.php",
+		"/C/xampp/htdocs/corpmedic/laboratorio/resexamen/mantenimiento.php",
+		"/C/xampp/htdocs/corpmedic/laboratorio/resexamen/guardar.php",
+		"/C/xampp/htdocs/corpmedic/laboratorio/resexamen/script.js",
+		"/C/xampp/htdocs/corpmedic/js/skins/lightgray/skin.min.css",
+		"/C/xampp/htdocs/corpmedic/js/tinymce/tinymce.min.js",
+		"/C/xampp/htdocs/corpmedic/js/tinymce/license.txt",
+		"/C/xampp/htdocs/corpmedic/js/tinymce.min.js",
+		"/C/xampp/htdocs/corpmedic/hc/exa_derivado/script.js",
+		"/C/xampp/htdocs/corpmedic/hc/exa_derivado/save.php",
+		"/C/xampp/htdocs/corpmedic/hc/pacientes/guardar.php",
+		"/C/xampp/htdocs/corpmedic/include/btn_mantenimiento.php",
+		"/C/xampp/htdocs/corpmedic/js/js_mantenimiento.js",
+		"/C/xampp/htdocs/corpmedic/hc/exa_derivado/guardar.php",
+		"/C/xampp/htdocs/corpmedic/hc/hc/imprimir_receta.php",
+		"/C/xampp/htdocs/corpmedic/hc/examenes/index.php",
+		"/C/xampp/htdocs/corpmedic/hc/citas_dia/index.php",
+		"/C/xampp/htdocs/corpmedic/hc/ocupacion/mantenimiento.php",
+		"/C/xampp/htdocs/corpmedic/hc/examen_fisico/guardar.php",
+		"/C/xampp/htdocs/corpmedic/hc/hc/process.php",
+		"/C/xampp/htdocs/corpmedic/hc/pacientes/mantenimiento.php",
+		"/C/xampp/htdocs/corpmedic/hc/ocupacion/guardar.php",
+		"/C/xampp/htdocs/corpmedic/hc/examen_fisico/index.php",
+		"/C/xampp/htdocs/corpmedic/hc/tipo_examen/index.php",
+		"/C/xampp/htdocs/corpmedic/hc/antecedente/mantenimiento.php",
+		"/C/xampp/htdocs/corpmedic/hc/tipo_examen/mantenimiento.php"
+	],
+	"find":
+	{
+		"height": 34.0
+	},
+	"find_in_files":
+	{
+		"height": 0.0,
+		"where_history":
+		[
+		]
+	},
+	"find_state":
+	{
+		"case_sensitive": false,
+		"find_history":
+		[
+			"nuev",
+			"load_problema",
+			"notifications",
+			"#notifications",
+			"count-notifications",
+			"\"t\"",
+			"nuevo",
+			"Upload",
+			"name_image",
+			"$(\".custom-input-file input:file\").change(function(){\n          $(this).parent().find(\".archivo\").html($(this).val());\n      }).css('border-width',function(){\n          if(navigator.appName == \"Microsoft Internet Explorer\")\n              return 0;\n      });",
+			"\"p\"",
+			"idpaciente",
+			".labels",
+			"getList",
+			"SESION",
+			"load_subproducto",
+			"idformapago",
+			"formapago",
+			"public.formapago",
+			"idformapago",
+			"formapago",
+			"po_problema",
+			"idformapago",
+			"#432412",
+			"background: #432412",
+			"idlinea",
+			"cargo",
+			"idcargo",
+			"produccion.linea",
+			"idlinea",
+			"linea",
+			"idlinea",
+			"facturacion.correlativo",
+			"\"t\"",
+			"idmelamina",
+			"genDoc",
+			"idtipodocumento",
+			"genDoc",
+			"idtipodocumento",
+			"Correlativo",
+			"load_correlativo",
+			"vista_sedes",
+			"idtipodocumento",
+			"facturacion.vista_tipodocumento",
+			"facturacion.correlativo",
+			"sucursales",
+			"facturacion.tipodocumento",
+			"idsucursal",
+			"load_maderba",
+			"melamina",
+			"facturacion.tipodocumento",
+			"idtipodocumento",
+			"DE CONTROL DE MUEBLERIA",
+			"DE EVALUACION DE DESEMPEÑO",
+			"\"p\"",
+			"idcie",
+			"\"p\"",
+			"resultad",
+			"ImprimirResultadosExa",
+			"resul",
+			"recibirco",
+			"recibirconc",
+			"recib",
+			"reci",
+			"precio",
+			"inputtext",
+			"Realizaci",
+			"tab7",
+			"\"a\"",
+			"\"c\"",
+			"textarea",
+			"text",
+			"fecha",
+			"id=\"idtipoexamen\"",
+			"idtipoexamen",
+			"	session_start();\n	include($_SERVER['DOCUMENT_ROOT'].\"/corpmedic/config.php\");\n	$oper = $_POST['oper'];\n	\n	if(isset($_GET['oper']))\n	{\n		$oper = $_GET['oper'];\n	}\n	switch ($oper)\n	{\n		case 1: \n				$stmt = $conexion->prepare(\"select b.idconsultorio,e.descripcion||' ('||d.descripcion||' ) '||b.descripcion as consultorio,\n												   a.precio\n											from public.consultorio_tipoexa as a inner join public.consultorio as b on\n													a.idconsultorio = b.idconsultorio inner join public.tipo_examen as c on\n													c.idtipoexamen = a.idtipoexamen inner join segu.sedes as d on\n													d.idsede = b.idsede inner join segu.empresa as e on e.idempresa = d.idempresa\n											where c.idtipoexamen = :p1\");\n				$stmt->bindParam(':p1',$_GET['idte'],PDO::PARAM_INT);\n				$stmt->execute();\n				$html = '<option value=\"\">-Seleccione-</option>';\n				$c = 0;$r = 1;\n				foreach($stmt->fetchAll() as $rows)\n				{\n					$html = '<option value=\"'.$rows[0].'\">'.$rows[1].' - '.$rows[2].'</option>';$c++;\n				}\n				if($c==0)\n				{\n					$html = '<option value=\"\">No se encontraron Consultorios</option>';$r = 0;\n				}\n				print_r(json_encode(array($r,$html)));\n				break;\n		case 2:\n				$fecha = date('Y-m-d');\n				$hora = date('h:i:s');\n				\n				\n				$stmt = $conexion->prepare(\"INSERT INTO historia_clinica.hc_exa_aux(iddet_hc,idconsultorio,idtipoexamen,fecha,hora,idconsultorio_origen) \n										   values(:p1,:p2,:p3,:p4,:p5,:p6) returning idhc_exa_aux \");\n				$stmt->bindParam(':p1',$_POST['iddet_hc'],PDO::PARAM_INT);\n				$stmt->bindParam(':p2',$_POST['idconsultorio'],PDO::PARAM_INT);\n				$stmt->bindParam(':p3',$_POST['idtipoexamen'],PDO::PARAM_INT);\n				$stmt->bindParam(':p4',$fecha,PDO::PARAM_STR);\n				$stmt->bindParam(':p5',$hora,PDO::PARAM_STR);    \n				$stmt->bindParam(':p6',$_SESSION['IdConsultorio'],PDO::PARAM_INT);\n				\n				$p1 = $stmt->execute();\n				$p2 = $stmt->errorInfo();\n				$idhc_exa_aux = $p1[0][0];\n				if(!$p1){ print_r(json_encode(array('r'=>0,'data'=>'Ha ocurrido un error al tratar de registrar el examen auxiliar. Porfavor intentelo de nuevo.')));}\n				  else {\n					  //Obtenemos datos para el historial\n					  $stmt = $conexion->prepare(\"SELECT  DISTINCT a.idtipoexamen,\n																				a.descripcion\n																		from public.tipo_examen as a inner join \n																			historia_clinica.hc_exa_aux as b on a.idtipoexamen = b.idtipoexamen\n																			where b.iddet_hc = :p1\");\n					  $stmt->bindParam(':p1',$_POST['iddet_hc'],PDO::PARAM_INT);\n					  $stmt->execute();\n					  $html = '';\n					  $html .= '<h5 class=\"Titulo ui-corner-top\" style=\"padding:5px 10px; margin-top: 0; margin-bottom: 10px;font-size: 12px\">Historial de Examenes Auxiliares</h5>';\n					  foreach($stmt->fetchAll() as $rows)\n					  {\n						  $stmt2 = $conexion->prepare(\"select a.idconsultorio,\n															e.descripcion||' ('||d.descripcion||' ) '||b.descripcion as consultorio,\n															a.fecha,\n															a.hora,\n															a.archivo,\n															a.imagen,\n															a.descripcion,\n															a.idhc_exa_aux,\n															a.estado\n													from historia_clinica.hc_exa_aux as a inner join public.consultorio as b on a.idconsultorio = b.idconsultorio\n															inner join public.tipo_examen as c on a.idtipoexamen = c.idtipoexamen \n															inner join segu.sedes as d on b.idsede = d.idsede\n															inner join segu.empresa as e on e.idempresa = d.idempresa \n													where a.iddet_hc = :p1 and a.idtipoexamen = {$rows[0]}\n													order by a.estado asc \");\n						  $stmt2->bindParam(':p1',$_POST['iddet_hc'],PDO::PARAM_INT);  \n						  $stmt2->execute();                      \n						  $html .= '<fieldset class=\"ui-widget-content ui-corner-all\" style=\"padding-bottom: 20px;margin-bottom: 10px \">';\n						  $html .= '<legend>'.$rows[1].'</legend>';\n						  foreach($stmt2->fetchAll() as $rows2)\n						  {\n								$html .= '<div id=\"box-item-exa-aux-'.$rows2['idhc_exa_aux'].'\" style=\"padding: 10px 15px; margin-bottom: 10px;\">\n												<div style=\"border-bottom: 1px solid #dadada\">\n													<span class=\"ui-icon ui-icon-carat-1-e\" style=\"display:inline-block\"></span> \n													<label class=\"labels\" style=\"width:auto;\"><a href=\"javascript:\" id=\"title-ex-aux-'.$rows2['idhc_exa_aux'].'\" class=\"title-exaux\">'.$rows2['fecha'].' - '.$rows2['consultorio'].'</a>\n														(';\n								if($rows2['estado']==1){$html .= 'Pendiente';} else {$html .= 'Atendido';}\n								$html .= ') </label>';\n								if($rows2['archivo']!=\"\")\n								{\n									$html .= '<a style=\"maring-left:10px; padding: 0; margin: 0;\" target=\"_blank\" href=\"'.$rows2['archivo'].'\" title=\"Archivo\"><img src=\"../../images/clipboard.png\"/></a>';\n								}\n								if($rows2['imagen']!=\"\")\n								{\n									$html .= '<a style=\"maring-left:10px; padding: 0; margin: 0;\" target=\"_blank\" href=\"'.$rows2['archivo'].'\" title=\"Imagen\"><img src=\"../../images/stats_lines.png\"/></a>';\n								}\n							   if($rows2['estado']==1)                     \n							   {\n								   $html .= ' <a href=\"javascript:\" class=\"delete-ex-aux\" style=\"color:red;float: right\" title=\"Eliminar este Examen\" ><img src=\"../../images/trash_can.png\" /></a>';\n							   }\n							  \n							  $html .= '</div>\n												<div id=\"detail-exaux-'.$rows2['idhc_exa_aux'].'\" style=\"padding: 10px 0 0 25px; display:none\">                                                \n													<textarea readonly=\"\" name=\"text_ex_aux_'.$rows2['idhc_exa_aux'].'\" id=\"text_ex_aux_'.$rows2['idhc_exa_aux'].'\" class=\"ui-widget-content ui-corner-all text\" rows=\"5\" cols=\"20\" style=\"width:100%;\">'.$rows2['descripcion'].'</textarea>\n												</div>\n												<div style=\"clear: both\"></div>\n											</div>';\n						  }\n						  $html .= '</fieldset>';\n					  }\n					  print_r(json_encode(array('r'=>1,'data'=>$html)));\n				  }\n				\n				break;\n		  case 3: \n				$sql = \"DELETE FROM historia_clinica.hc_exa_aux where idhc_exa_aux = :p1 and estado = 1\";\n				$stmt = $conexion->prepare($sql);\n				$stmt->bindParam(':p1',$_POST['id'],PDO::PARAM_INT);\n				$stmt->execute();\n				print_r(json_encode(array('r'=>1,'msg'=>'Ok')));\n				break;\n		default: break;\n	}",
+			"ConsultorioD",
+			"CitasD()",
+			"CitasD();",
+			"cargar_farmaco",
+			"BETWEEN",
+			"idhc_exa_aux ",
+			"observacion_",
+			" WHERE idhc_exa_aux =",
+			"Documento",
+			"cuerpo",
+			"impri",
+			"IdDte",
+			"UniMed",
+			"$ObjFunciones",
+			"á",
+			"IdPaciente",
+			"rows2",
+			"Divdiagnostico",
+			"NroItems",
+			"DivSave",
+			"Divdiagnostico",
+			"idconsultorio",
+			"examen_aux",
+			"IdDetDet",
+			"VALOR",
+			"$iddet_hc",
+			"iddet_hc",
+			"NroFarmacos",
+			"GenerarSave();",
+			"recibir_ocupacion",
+			"ocupacion",
+			"ventana",
+			"AbrirPopupBusqueda",
+			"ocupacion",
+			"AbrirPopupBusqueda",
+			"ocupacion",
+			"idocupacion",
+			"ddtreemenu",
+			"cliente",
+			" if($iddet_hc!='')\n        {\n            $SqlD = \"DELETE FROM historia_clinica.det_receta  WHERE iddet_hc = '\".$iddet_hc.\"'\";\n            $result=$conexion->query($SqlD);      \n        }  ",
+			"$ocupacion",
+			"ocupa",
+			"grado",
+			"Grado de instruccion",
+			"DesBloquear",
+			"bloq",
+			"blo",
+			"EliminarCita",
+			"datos",
+			"evoluci",
+			"evolu",
+			"datos"
+		],
+		"highlight": true,
+		"in_selection": false,
+		"preserve_case": false,
+		"regex": false,
+		"replace_history":
+		[
+			"indicator-notification",
+			"t",
+			"file_archivo",
+			"p",
+			"idremitente",
+			"idtipo_problema",
+			"tipo_problema",
+			"idtipo_problema",
+			"Tipoproblema",
+			"idtipo_problema",
+			"idcierre",
+			"cierre",
+			"idcierre",
+			"cierre",
+			"idcierre",
+			"Cierre",
+			"idcierre",
+			"correlativo",
+			"t",
+			"idtramite",
+			"seguridad.vista_sedes",
+			"idtipo_documento",
+			"vista_tipodocumento",
+			"correlativo",
+			"seguridad.sedes",
+			"tipo_documento",
+			"idsede",
+			"Envio",
+			"tipo_documento",
+			"idtipo_documento",
+			"DE EVALUACION DE DESEMPEÑO",
+			"p",
+			"idprocedimiento",
+			"p",
+			"textinput",
+			"a",
+			"c",
+			"&aacute;",
+			"tipo_llegada",
+			"idtipo_llegada",
+			"c",
+			"idunidad_medida",
+			"cantidad",
+			"Cantidad"
+		],
+		"reverse": false,
+		"show_context": true,
+		"use_buffer2": true,
+		"whole_word": false,
+		"wrap": true
+	},
+	"groups":
+	[
+		{
+			"selected": 0,
+			"sheets":
+			[
+				{
+					"buffer": 0,
+					"file": "lib/Spdo.php",
+					"semi_transient": false,
+					"settings":
+					{
+						"buffer_size": 673,
+						"regions":
+						{
+						},
+						"selection":
+						[
+							[
+								0,
+								0
+							]
+						],
+						"settings":
+						{
+							"syntax": "Packages/PHP/PHP.tmLanguage",
+							"tab_size": 4,
+							"translate_tabs_to_spaces": true
+						},
+						"translation.x": 0.0,
+						"translation.y": 0.0,
+						"zoom_level": 1.0
+					},
+					"stack_index": 0,
+					"type": "text"
+				}
+			]
+		}
+	],
+	"incremental_find":
+	{
+		"height": 22.0
+	},
+	"input":
+	{
+		"height": 34.0
+	},
+	"layout":
+	{
+		"cells":
+		[
+			[
+				0,
+				0,
+				1,
+				1
+			]
+		],
+		"cols":
+		[
+			0.0,
+			1.0
+		],
+		"rows":
+		[
+			0.0,
+			1.0
+		]
+	},
+	"menu_visible": true,
+	"output.find_results":
+	{
+		"height": 0.0
+	},
+	"project": "sisevas.sublime-project",
+	"replace":
+	{
+		"height": 62.0
+	},
+	"save_all_on_build": true,
+	"select_file":
+	{
+		"height": 0.0,
+		"selected_items":
+		[
+		],
+		"width": 0.0
+	},
+	"select_project":
+	{
+		"height": 0.0,
+		"selected_items":
+		[
+		],
+		"width": 0.0
+	},
+	"select_symbol":
+	{
+		"height": 0.0,
+		"selected_items":
+		[
+		],
+		"width": 0.0
+	},
+	"settings":
+	{
+	},
+	"show_minimap": true,
+	"show_open_files": false,
+	"show_tabs": true,
+	"side_bar_visible": true,
+	"side_bar_width": 259.0,
+	"status_bar_visible": true,
+	"template_settings":
+	{
+	}
+}
