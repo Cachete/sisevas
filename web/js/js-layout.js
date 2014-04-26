@@ -24,7 +24,8 @@ $(document).ready(function() {
              var isfixed = $floatingbox.css('position') == 'fixed';
 
              if($floatingbox.length > 0){
-                if ( scrollY > bodyY && !isfixed ) {                                
+                if ( scrollY > bodyY && !isfixed ) 
+                {                                
                           $floatingbox.stop().css({
                             position: 'fixed',                                  
                             marginLeft: 0,

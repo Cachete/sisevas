@@ -1,14 +1,15 @@
 <?php
 require_once '../lib/controller.php';
 require_once '../lib/view.php';
-require_once '../model/competencias.php';
+require_once '../model/aspectos.php';
 
-class competenciasController extends Controller 
+class aspectosController extends Controller 
 {   
     var $cols = array(
-                        1 => array('Name'=>'Codigo','NameDB'=>'idcompetencias','width'=>10,'align'=>'center'),
-                        2 => array('Name'=>'Descripcion','NameDB'=>'descripcion','width'=>80,'search'=>true),                        
-                        3 => array('Name'=>'Estado','NameDB'=>'estado','width'=>25,'align'=>'center')
+                        1 => array('Name'=>'Codigo','NameDB'=>'a.idaspecto','width'=>10,'align'=>'center'),
+                        2 => array('Name'=>'Descripcion','NameDB'=>'a.descripcion','width'=>80,'search'=>true),
+                        3 => array('Name'=>'Competencia','NameBD'=>'c.descripcion','width'=>80,'search'=>true),
+                        4 => array('Name'=>'Estado','NameDB'=>'a.estado','width'=>25,'align'=>'center')
                      );
 
     public function index() 
@@ -18,10 +19,7 @@ class competenciasController extends Controller
         $data['colsModels'] = $this->getColsModel($this->cols);        
         $data['cmb_search'] = $this->Select(array('id'=>'fltr','name'=>'fltr','text_null'=>'','table'=>$this->getColsSearch($this->cols)));
         $data['controlador'] = $_GET['controller'];
-
-        //(nuevo,editar,eliminar,ver)
         $data['actions'] = array(true,true,false,false);
-
         $view = new View();
         $view->setData($data);
         $view->setTemplate('../view/_indexGrid.php');
@@ -31,7 +29,7 @@ class competenciasController extends Controller
     
     public function indexGrid() 
     {
-        $obj = new competencias();        
+        $obj = new aspectos();        
         $page = (int)$_GET['page'];
         $limit = (int)$_GET['rows']; 
         $sidx = $_GET['sidx'];
@@ -48,28 +46,30 @@ class competenciasController extends Controller
     {
         $data = array();
         $view = new View();
+        $data['competencias'] = $this->Select(array('name'=>'idcompetencia','id'=>'idcompetencia','table'=>'evaluacion.competencias'));
         $view->setData($data);
-        $view->setTemplate( '../view/competencias/_form.php' );
+        $view->setTemplate( '../view/aspectos/_form.php' );
         echo $view->renderPartial();
     }
 
     public function edit() 
     {
-        $obj = new competencias();
+        $obj = new aspectos();
         $data = array();
         $view = new View();
         $obj = $obj->edit($_GET['id']);
         $data['obj'] = $obj;
+        $data['competencias'] = $this->Select(array('name'=>'idcompetencia','id'=>'idcompetencia','table'=>'evaluacion.competencias','code'=>$obj->idcompetencia));
         $view->setData($data);
-        $view->setTemplate( '../view/competencias/_form.php' );
+        $view->setTemplate( '../view/aspectos/_form.php' );
         echo $view->renderPartial();
     }
     
     public function save()
     {
-        $obj = new competencias();
+        $obj = new aspectos();
         $result = array();        
-        if ($_POST['idcompetencia']=='') 
+        if ($_POST['idaspecto']=='') 
             $p = $obj->insert($_POST);                        
         else         
             $p = $obj->update($_POST);                                
@@ -83,7 +83,7 @@ class competenciasController extends Controller
     
     public function delete()
     {
-        $obj = new competencias();
+        $obj = new aspectos();
         $result = array();        
         $p = $obj->delete($_GET['id']);
         if ($p[0]) $result = array(1,$p[1]);
@@ -91,5 +91,11 @@ class competenciasController extends Controller
         print_r(json_encode($result));
     }
 
+    public function getAspectos()
+    {
+        $obj = new aspectos();
+        $options = $obj->getAspectos($_GET['idc']);
+        print_r(json_encode($options));
+    }
 }
 ?>
