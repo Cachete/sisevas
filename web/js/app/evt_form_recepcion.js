@@ -17,8 +17,40 @@ $(function()
     });
 
     $("#estados").buttonset();
-
+    
+//    if($("#idtramite").val()!= '')
+//    {
+//        idtipodoc=$(" #idtipo_documento ").val();
+//        
+//        if(idtipodoc== 1)
+//        {    
+//          $("#carg_formato").empty().append('Cargando...');
+//          $.get('index.php','controller=tipodocumento&action=devformatos',function(html){    
+//
+//            $("#carg_formato").empty().append(html);
+//          }); 
+//        }
+//
+//        if(idtipodoc== 2)
+//        {    
+//          $("#carg_formato").empty().append('Cargando...');
+//          $.get('index.php','controller=tipodocumento&action=devformatos1',function(html){    
+//
+//            $("#carg_formato").empty().append(html);
+//          }); 
+//        }
+//
+//        if(idtipodoc== 3)
+//        {    
+//          $("#carg_formato").empty().append('Cargando...');
+//          $.get('index.php','controller=tipodocumento&action=devformatos2',function(html){    
+//
+//            $("#carg_formato").empty().append(html);
+//          }); 
+//        }
+//    }
     /*
+    
     $("#frm_melamina").on('click','#newLine',function(){
         $.get('index.php?controller=Linea&action=create',function(html)
         {           
@@ -49,28 +81,6 @@ $(function()
         });
     })
     */
-
-    /*$("#dni").autocomplete({
-        minLength: 0,
-        source: 'index.php?controller=personal&action=get&tipo=1',
-        focus: function( event, ui ) 
-        {
-            $( "#dni" ).val( ui.item.dni );
-            return false;
-        },
-        select: function( event, ui ) 
-        {
-            $("#idpersonal").val(ui.item.idpersonal);
-            $( "#dni" ).val( ui.item.dni );
-            $( "#personal" ).val( ui.item.nompersonal );                                    
-            return false;
-        }
-     }).data( "ui-autocomplete" )._renderItem = function( ul, item ) {        
-        return $( "<li></li>" )
-            .data( "item.autocomplete", item )
-            .append( "<a>"+ item.dni +" - " + item.nompersonal + "</a>" )
-            .appendTo(ul);
-      };*/
     
 
 });
@@ -138,7 +148,7 @@ function save()
   bval = bval && $( "#idpersonal" ).required();
   bval = bval && $( "#idcierre" ).required();
 
-  var str = $("#frm_envio").serialize();
+  var str = $("#frm_recepcion").serialize();
   if ( bval ) 
   {
       $.post('index.php',str,function(res)

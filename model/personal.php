@@ -35,12 +35,14 @@ class Personal extends Main
     function insert($_P ) 
     {
         $dni=$_P['dni'];
-
-        $stmt = $this->db->prepare("INSERT INTO personal(dni, nombres, apellidos, telefono, direccion, sexo, idestado_civil,
+        $estado=1;
+        $tdoc= $_P['iddocumento_identidad'];
+        $stmt = $this->db->prepare("INSERT INTO personal(iddocumento_identidad, dni, nombres, apellidos, telefono, direccion, sexo, idestado_civil,
             estado,idarea,idcargo,idperfil, usuario,clave,ruc,idespecialidad,idgradinstruccion,idtipopersonal,codessalud,
             codafp,nrobrevete,file)
-            values(:p1,:p2,:p3,:p4,:p5,:p6,:p7,:p8,:p9,:p10,:p11,:p12,:p13,:p14,:p15,:p16,:p17,:p18,:p19,:p20,:p21)");
-             
+            values(:p0,:p1,:p2,:p3,:p4,:p5,:p6,:p7,:p8,:p9,:p10,:p11,:p12,:p13,:p14,:p15,:p16,:p17,:p18,:p19,:p20,:p21)");
+        
+        $stmt->bindParam(':p0', $tdoc , PDO::PARAM_STR);
         $stmt->bindParam(':p1', $_P['dni'] , PDO::PARAM_STR);
         $stmt->bindParam(':p2', $_P['nombres'] , PDO::PARAM_STR);
         $stmt->bindParam(':p3', $_P['apellidos'] , PDO::PARAM_STR);        
@@ -63,7 +65,8 @@ class Personal extends Main
         $stmt->bindParam(':p19', $_P['codafp'] , PDO::PARAM_STR);
         $stmt->bindParam(':p20', $_P['nrobrevete'] , PDO::PARAM_STR);
         $stmt->bindParam(':p21', $_P['archivo'] , PDO::PARAM_STR);
-
+        //$stmt->bindParam(':p22', $estado , PDO::PARAM_STR);
+        
         $p1 = $stmt->execute();
         $p2 = $stmt->errorInfo();
         

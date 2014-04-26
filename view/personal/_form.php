@@ -91,7 +91,7 @@
             <br/>
 
             <label for="email" class="labels">Email:</label>  
-            <input id="email" name="email" class="text ui-widget-content ui-corner-all" style=" width: 200px; text-align: left;" value="<?php echo $obj->email; ?>" />
+            <input id="email" name="email" class="text ui-widget-content ui-corner-all" style=" width: 200px; text-align: left;" value="<?php echo $obj->mail; ?>" />
             
             <label for="sexo" class="labels">Sexo:</label>        
             <select id="sexo" name="sexo" class="ui-widget-content ui-corner-all">

@@ -6,11 +6,12 @@ require_once '../model/envio.php';
 class EnvioController extends Controller 
 {   
     var $cols = array(
-                        1 => array('Name'=>'Codigo','NameDB'=>'t.idtramite','align'=>'center','width'=>70),
-                        2 => array('Name'=>'Descripcion','NameDB'=>'td.descripcion','width'=>250,'search'=>true),
-                        3 => array('Name'=>'Maderba','NameDB'=>'t.codigo','width'=>120),
-                        4 => array('Name'=>'Medida','NameDB'=>'t.fechainicio','align'=>'right','width'=>70),                        
-                        5 => array('Name'=>'Precio Unitario','NameDB'=>'t.asunto','align'=>'right','width'=>100)
+                        1 => array('Name'=>'Codigo','NameDB'=>'t.idtramite','align'=>'center','width'=>40),
+                        2 => array('Name'=>'Tipo Documento','NameDB'=>'td.descripcion','width'=>90,'search'=>true),
+                        3 => array('Name'=>'Codigo','NameDB'=>'t.codigo','width'=>60),
+                        4 => array('Name'=>'Fecha Inicio','NameDB'=>'t.fechainicio','align'=>'center','width'=>50),                        
+                        5 => array('Name'=>'Asunto','NameDB'=>'t.asunto','align'=>'left','width'=>200),
+                        6 => array('Name'=>'','NameDB'=>'','align'=>'center','width'=>20)
                      );
 
     public function index() 
@@ -20,7 +21,7 @@ class EnvioController extends Controller
         $data['colsModels'] = $this->getColsModel($this->cols);        
         $data['cmb_search'] = $this->Select(array('id'=>'fltr','name'=>'fltr','text_null'=>'','table'=>$this->getColsSearch($this->cols)));
         $data['controlador'] = $_GET['controller'];
-
+        $data['script'] = "evt_index_envio.js";
         //(nuevo,editar,eliminar,ver)
         $data['actions'] = array(true,true,true,false);
 
@@ -30,6 +31,7 @@ class EnvioController extends Controller
         $view->setlayout('../template/layout.php');
         $view->render();
     }
+
     public function indexGrid() 
     {
         $obj = new Envio();        
@@ -60,11 +62,25 @@ class EnvioController extends Controller
         $obj = new Envio();
         $data = array();
         $view = new View();
-        $obj = $obj->edit($_GET['id']);
+        $obj = $obj->edit($_GET['id']);   
         $data['obj'] = $obj;
+        $data['personal'] = $this->Select(array('id'=>'idpersonal','name'=>'idpersonal','text_null'=>'Seleccione...','table'=>'vista_personal','code'=>$obj->idperdestinatario));        
+        $data['remitente'] = $this->Select(array('id'=>'idperremitente','name'=>'idperremitente','text_null'=>'Seleccione...','table'=>'vista_remitente','code'=>$obj->idpersonalresp));        
+        
         $data['tipodoc'] = $this->Select(array('id'=>'idtipo_documento','name'=>'idtipo_documento','text_null'=>':: Seleccione ::','table'=>'vista_tipodocumento','code'=>$obj->idtipo_documento));
+        $data['tipoproblema'] = $this->Select(array('id'=>'idtipo_problema','name'=>'idtipo_problema','text_null'=>'Seleccione...','table'=>'vista_tipoproblema','code'=>$obj->idtipo_problema));        
+        
+        $tp= $obj->idtipo_problema;
+        if ($tp == 1) {
+            $data['idareai'] = $this->Select(array('id'=>'idareai','name'=>'idareai','text_null'=>'Seleccione...','table'=>'vista_consultorio','code'=>$obj->idareai));
+        }else
+            {
+                $data['idareai'] = $this->Select(array('id'=>'idareai','name'=>'idareai','text_null'=>'Seleccione...','table'=>'vista_personal','code'=>$obj->idpersonalresp));
+        
+            }
+        
         $view->setData($data);
-        $view->setTemplate( '../view/envio/_form.php' );
+        $view->setTemplate( '../view/envio/_devform.php' );
         echo $view->renderPartial();
     }
 
@@ -93,28 +109,12 @@ class EnvioController extends Controller
         print_r(json_encode($result));
     }
 
-    public function getList()
-    {
-        $obj = new Envio();
-        $idlinea = (int)$_GET['idl'];
-        $rows = $obj->getList($idlinea);
-        print_r(json_encode($rows));
-    }
-
     public function nuevos()
     {
         $obj = new Envio();
         print_r(json_encode($obj->nuevos()));
         
     }
-
-    public function getStock()
-    {
-        $obj = new Envio();
-        $idtramite = (int)$_GET['id'];
-        $idalmacen = (int)$_GET['a'];
-        $p = $obj->getStock($idtramite,$idalmacen);
-        echo $p;
-    }    
+   
 }
 ?>

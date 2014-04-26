@@ -1,0 +1,98 @@
+$(function() 
+{   //alert("SW");
+    $(".div_container").append("<div id='derivardoc'></div>");
+    $("#derivardoc").dialog({
+        autoOpen: false,
+        modal: true, width:800,height:450,
+        title:'Derivar documento',
+        buttons: {
+            "Confirmar": function() {
+                SaveDerivar()
+            },
+            Cancel: function() {
+              $( this ).dialog( "close" );
+            }
+          },
+          close: function() {
+            allFields.val( "" ).removeClass( "ui-state-error" );
+          }
+    });
+    
+    $("#list").on('click', '.recepcion', function() {
+        var i = $(this).attr("id");
+        i = i.split('-');
+        i = i[1];
+        if (confirm('Realmente deseas recepcionar este documento?'))
+        {
+            $.post('index.php', 'controller=recepcion&action=recibir&i=' + i, function(r)
+            {
+                if (r[0] == 1)
+                    gridReload();
+                else
+                    alert('Ha ocurrido un error, vuelve a intentarlo.');
+            }, 'json');
+        }
+    });
+    
+    $("#list").on('click', '.printer', function() {
+        var i = $(this).attr("id");
+        i = i.split('-');
+        id = i[1];
+        td = i[2];
+
+        if(td!= '' & td== 1)
+        {
+            var ventana=window.open('index.php?controller=recepcion&action=printer_mem&id='+id, 'Imprimir Proforma, resizable=no, scrollbars=yes, status=yes,location=yes'); 
+            ventana.focus();
+        }else
+            {
+                var ventana=window.open('index.php?controller=recepcion&action=printer_ot&id='+id, 'Imprimir Proforma, resizable=no, scrollbars=yes, status=yes,location=yes'); 
+                ventana.focus();
+            }
+        
+        
+    });
+    
+    $("#list").on('click', '.derivar', function() {
+        var i = $(this).attr("id");
+        i = i.split('-');
+        id = i[1];
+        
+        $.get('index.php', 'controller=recepcion&action=derivar&id=' + id, function(r)
+        {
+           $("#derivardoc").empty().append(r);
+           $("#derivardoc").dialog('open');
+        });
+        
+    });
+    
+   
+
+});
+
+function SaveDerivar()
+{
+    //alert('');
+  bval = true;        
+  
+  var str = $("#box-det").serialize();
+  if ( bval ) 
+  {
+      //alert(str)
+      $.post('index.php','controller=recepcion&action=SaveDerivar&'+str,function(r)
+      {
+        if(r[0]==1)
+        {
+          gridReload();
+          $("#derivardoc").dialog("close");
+          
+        }
+        else
+        {
+          alert(res[1]);
+        }
+        
+      },'json');
+  }
+  return false;
+}

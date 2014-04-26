@@ -101,6 +101,7 @@ class TipodocumentoController extends Controller
         $obj = new Tipodocumento();        
         $view = new View();
         $data['personal'] = $this->Select(array('id'=>'idpersonal','name'=>'idpersonal','text_null'=>'Seleccione...','table'=>'vista_personal'));        
+        $data['remitente'] = $this->Select(array('id'=>'idperremitente','name'=>'idperremitente','text_null'=>'Seleccione...','table'=>'vista_remitente'));        
         $data['consultorio'] = $this->Select(array('id'=>'idconsultorio','name'=>'idconsultorio','text_null'=>'Seleccione...','table'=>'vista_consultorio'));
         $view->setData($data);
         $view->setTemplate( '../view/tipodocumento/_memorando.php' );

@@ -76,7 +76,18 @@ function ValidaPDF(obj)
 
 function save()
 {
-  bval = true;        
+  bval = true;
+  
+  bval = bval && $( "#iddocumento_identidad" ).required();
+  bval = bval && $( "#idestado_civil" ).required();        
+  bval = bval && $( "#idtipopersonal" ).required();
+  
+  bval = bval && $( "#idespecialidad" ).required();
+  bval = bval && $( "#idgradinstruccion" ).required();        
+  bval = bval && $( "#idcargo" ).required();
+  bval = bval && $( "#idconsultorio" ).required();        
+  bval = bval && $( "#idperfil" ).required();
+  
   bval = bval && $( "#dni" ).required();
   bval = bval && $( "#nombres" ).required();        
   bval = bval && $( "#apellidos" ).required();

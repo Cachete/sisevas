@@ -154,6 +154,17 @@ class PersonalController extends Controller
     //Ver historial de pagos
     public function VerPagos()
     {
+        /*$obj = new Personal();
+        $data = array();
+        $view = new View();
+        $ro = $obj->viewPag($_GET);
+        $data['produccion'] = $ro[0];
+        $data['acabado'] = $ro[1];
+        $view->setData($data);
+        $view->setTemplate( '../view/pagopersonal/_datoshist.php' );
+        $view->setLayout( '../template/empty.php' );
+        echo $view->renderPartial();*/
+
         $obj = new Personal();
         $data = array();
         $view = new View();
