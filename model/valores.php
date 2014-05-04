@@ -13,7 +13,7 @@ class valores extends Main
         return $stmt->fetchObject();
     }
     
-    function save($items) 
+    function save($items,$idc,$ida) 
     {       
         $fecha_reg = date('Y-m-d');        
         $idperiodo = (!isset($_SESSION['idperiodo'])) ? '1' : $_SESSION['idperiodo'];
@@ -25,17 +25,18 @@ class valores extends Main
             $this->db->beginTransaction();
 
             //Eleminamos los Eliminados
-            $ida = "";$idc="";
+            //$ida = "";$idc="";
             foreach ($items as $k => $v) 
             {
                 if($v->idvalor!="")
                     $ids .= $v->idvalor.",";
-                $ida = $v->idconsultorio;
-                $idc = $v->idaspecto;
+                //$ida = $v->idaspecto;
+                //$idc = $v->idconsultorio;
             }
             $ids .= "0";
-            $delete = $this->db->prepare("DELETE FROM evaluacion.valores where idvalor not in (".$ids.")
-                                                    and idaspecto = ".$ida." and idconsultorio = ".$idc);
+            $delete_query = "DELETE FROM evaluacion.valores where idvalor not in (".$ids.") and idaspecto = ".$ida." and idconsultorio = ".$idc;
+            $delete = $this->db->prepare($delete_query);
+            //echo $delete_query;
             $delete->execute();
 
             //News y Updates
@@ -48,6 +49,7 @@ class valores extends Main
                     $n = $this->vParametro($v->idparam);
                     if($n==0)
                     {
+
                         $insert = $this->db->prepare("INSERT INTO evaluacion.valores (idaspecto,
                                                                                       idparametro,
                                                                                       idconsultorio,
@@ -70,7 +72,8 @@ class valores extends Main
                 }
                 else 
                 {
-                    //Edit                    
+                    //Edit      
+
                     $update = $this->db->prepare("UPDATE evaluacion.valores set valor = :p1, 
                                                                                 orden = :p2 
                                                         where idvalor = :p0 ");

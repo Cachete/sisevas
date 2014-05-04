@@ -42,10 +42,10 @@ if( document.createElement('svg').getAttributeNS ) {
 		return svg;
 	}
 
-	function controlCheckbox( el, type, svgDef ) {
+	function controlCheckbox( el, type, svgDef ) 
+	{
 		var svg = createSVGEl( svgDef );
-		el.parentNode.appendChild( svg );
-		
+		el.parentNode.appendChild( svg );		
 		el.addEventListener( 'change', function() {
 			if( el.checked ) {
 				draw( el, type );
@@ -56,13 +56,17 @@ if( document.createElement('svg').getAttributeNS ) {
 		} );
 	}
 
-	function controlRadiobox( el, type ) {
+	function controlRadiobox( el, type ) 
+	{
 		var svg = createSVGEl();
 		el.parentNode.appendChild( svg );
+		if(el.checked)
+		  draw(el,type);
 		el.addEventListener( 'change', function() {
 			resetRadio( el );
 			draw( el, type );
 		} );
+
 	}
 
 	checkbxsCross.forEach( function( el, i ) { controlCheckbox( el, 'cross' ); } );
@@ -74,64 +78,6 @@ if( document.createElement('svg').getAttributeNS ) {
 	checkbxsDiagonal.forEach( function( el, i ) { controlCheckbox( el, 'diagonal' ); } );
 	checkbxsList.forEach( function( el ) { controlCheckbox( el, 'list', { viewBox : '0 0 300 100', preserveAspectRatio : 'none' } ); } );
 
-	function draw( el, type ) {
-		var paths = [], pathDef, 
-			animDef,
-			svg = el.parentNode.querySelector( 'svg' );
-
-		switch( type ) {
-			case 'cross': pathDef = pathDefs.cross; animDef = animDefs.cross; break;
-			case 'fill': pathDef = pathDefs.fill; animDef = animDefs.fill; break;
-			case 'checkmark': pathDef = pathDefs.checkmark; animDef = animDefs.checkmark; break;
-			case 'circle': pathDef = pathDefs.circle; animDef = animDefs.circle; break;
-			case 'boxfill': pathDef = pathDefs.boxfill; animDef = animDefs.boxfill; break;
-			case 'swirl': pathDef = pathDefs.swirl; animDef = animDefs.swirl; break;
-			case 'diagonal': pathDef = pathDefs.diagonal; animDef = animDefs.diagonal; break;
-			case 'list': pathDef = pathDefs.list; animDef = animDefs.list; break;
-		};
-		
-		paths.push( document.createElementNS('http://www.w3.org/2000/svg', 'path' ) );
-
-		if( type === 'cross' || type === 'list' ) {
-			paths.push( document.createElementNS('http://www.w3.org/2000/svg', 'path' ) );
-		}
-		
-		for( var i = 0, len = paths.length; i < len; ++i ) {
-			var path = paths[i];
-			svg.appendChild( path );
-
-			path.setAttributeNS( null, 'd', pathDef[i] );
-
-			var length = path.getTotalLength();
-			// Clear any previous transition
-			//path.style.transition = path.style.WebkitTransition = path.style.MozTransition = 'none';
-			// Set up the starting positions
-			path.style.strokeDasharray = length + ' ' + length;
-			if( i === 0 ) {
-				path.style.strokeDashoffset = Math.floor( length ) - 1;
-			}
-			else path.style.strokeDashoffset = length;
-			// Trigger a layout so styles are calculated & the browser
-			// picks up the starting position before animating
-			path.getBoundingClientRect();
-			// Define our transition
-			path.style.transition = path.style.WebkitTransition = path.style.MozTransition  = 'stroke-dashoffset ' + animDef.speed + 's ' + animDef.easing + ' ' + i * animDef.speed + 's';
-			// Go!
-			path.style.strokeDashoffset = '0';
-		}
-	}
-
-	function reset( el ) {
-		Array.prototype.slice.call( el.parentNode.querySelectorAll( 'svg > path' ) ).forEach( function( el ) { el.parentNode.removeChild( el ); } );
-	}
-
-	function resetRadio( el ) {
-		Array.prototype.slice.call( document.querySelectorAll( 'input[type="radio"][name="' + el.getAttribute( 'name' ) + '"]' ) ).forEach( function( el ) { 
-			var path = el.parentNode.querySelector( 'svg > path' );
-			if( path ) {
-				path.parentNode.removeChild( path );
-			}
-		} );
-	}
+	
 
 }

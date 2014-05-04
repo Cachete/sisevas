@@ -95,7 +95,9 @@
 	function save()
 	{
         var items = new Array(),
-                c = 0;
+        	idc = $("#idconsultorio").val(),
+        	ida = $("#idaspecto").val(),
+            c = 0;
         $("#sortable li").each(function(i,j){
             var valor = $(j).find('.valor-item').val(),
                     idparam = $(j).find('.id-param-item').val(),
@@ -112,11 +114,11 @@
                 c += 1;
         });		
         var sendi = json_encode(items);		
-        $.post('index.php','controller=valores&action=save&items='+sendi,function(data){
-                if(data[0]=='1')
-                	alert("Se ha grabado los cambios satisfactoriamente.");
-                else
-                	alert("Ha ocurrido un error, intentelo nuevamente.");
+        $.post('index.php','controller=valores&action=save&items='+sendi+'&idc='+idc+'&ida='+ida,function(data){
+            if(data[0]=='1')
+            	alert("Se ha grabado los cambios satisfactoriamente.");
+            else
+            	alert("Ha ocurrido un error, intentelo nuevamente.");
         },'json');
 	}
 	function getValores()

@@ -1,7 +1,7 @@
 <?php
-    require_once '../lib/controller.php';
-    require_once '../lib/view.php';
-    require_once '../model/personal.php';
+require_once '../lib/controller.php';
+require_once '../lib/view.php';
+require_once '../model/personal.php';
 
 class PersonalController extends Controller 
 {   
@@ -14,7 +14,8 @@ class PersonalController extends Controller
                         6 => array('Name'=>'Direccion','NameDB'=>'p.direccion'),
                         7 => array('Name'=>'Sexo','NameDB'=>'p.sexo','width'=>70),
                         8 => array('Name'=>'Estado Civil','NameDB'=>'e.descripcion','align'=>'left','width'=>80),
-                        9 => array('Name'=>'Estado','NameDB'=>'p.estado','align'=>'center','width'=>'50')
+                        9 => array('Name'=>'Estado','NameDB'=>'p.estado','align'=>'center','width'=>'50'),
+                        10 => array('Name'=>'','NameDB'=>'','align'=>'center','width'=>'50')
                      );
 
     public function index() 

@@ -29,7 +29,7 @@ a:hover, a:focus {
 
 .container > header {
 	margin: 0 auto;
-	padding: 2em 2em;
+	padding: 2em 2em .1em;
 	text-align: center;
 	background: rgba(0,0,0,.05);
 }
@@ -71,7 +71,7 @@ section.related {
 .codrops-top {
 	text-transform: uppercase;
 	width: 100%;
-	font-size: 0.69em;
+	font-size: 0.89em;
 	line-height: 2.2;
 	font-weight: 700;
 }
@@ -126,12 +126,13 @@ section.related {
 #menu ul
 {
 	list-style:none;
-	width:auto;
+	width:100%;
 	border:1px dotted;
 	color: rgba(0,0,0,.05);
 	padding: 8px 0 0px;
-	margin: 0 auto;
-	background: #dadada;
+	float: left;
+	background: rgba(0,0,0,.05);;
+	
 }
 #menu ul li
 {
@@ -156,3 +157,7 @@ section.related {
 	color: #ffffff;
 
 }
+
+.cmb-c { border:0; padding: .2em; background: #dadada; color: #065168; font-size: 1em}
+
+.labels-parametros:hover { color: #dadada; }

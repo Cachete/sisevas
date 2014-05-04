@@ -10,7 +10,6 @@
     <link href="css/style_forms.css" rel="stylesheet" type="text/css" />
     <link href="css/ui.jqgrid.css" rel="stylesheet" type="text/css" />
     <link rel="stylesheet" type="text/css" href="css/font-awesome.min.css">
-
     <script type="text/javascript" src="js/jquery-1.9.1.js"></script>
     <script type="text/javascript" src="js/jquery-ui-1.10.3.custom.min.js"></script>    
     <script type="text/javascript" src="js/menus.js"></script>
@@ -24,11 +23,9 @@
     <!-- <script type="text/javascript" src="js/jquery.jqGrid.src.js"></script> -->
     <script type="text/javascript" src="js/grid.locale-es.js"></script>
     <!-- prefix free to deal with vendor prefixes -->
-    <script src="http://thecodeplayer.com/uploads/js/prefixfree-1.0.7.js" type="text/javascript" type="text/javascript"></script>
-    
+    <script src="http://thecodeplayer.com/uploads/js/prefixfree-1.0.7.js" type="text/javascript" type="text/javascript"></script>    
     <script src="js/jquery.uploadify.min.js" type="text/javascript"></script>
     <link rel="stylesheet" type="text/css" href="css/uploadify.css"></link>
-
     <script type="text/javascript">
         /*jQuery time*/
         $(document).ready(function(){
@@ -52,24 +49,20 @@
         <div class="header_cont">
             <h1><a href="#">Romero</a></h1> 
             <nav class="head_nav"></nav>
-        </div>       
-       
+        </div>
     </header>
     <div id="body">
-        <div id="banner"></div>
-        
+        <div id="banner"></div>        
         <div id="left">
             <h6 class="ui-widget-header ui-state-hover">BIENVENIDO  </h6>
             <br />
             <p>USER</p>
             <div id="barra-session">
-                <span class="item-top"><?php echo strtoupper($_SESSION['name']); ?></span>
-                
+                <span class="item-top"><?php echo strtoupper($_SESSION['name']); ?></span>                
             </div>
             <p>SEDE</p>
             <div id="barra-session">
-                <span class="item-top"><?php echo strtoupper($_SESSION['sucursal']); ?></span>
-                
+                <span class="item-top"><?php echo strtoupper($_SESSION['sucursal']); ?></span>                
             </div>
             <p>CONSULTORIO</p>
             <div id="barra-session">                      
@@ -80,11 +73,13 @@
                 <a href="#" class="box-item-notification notification-encomienda" title="Encomiendas Pendientes">
                     <span class="indicator-notification"></span>
                 </a>
-                <!-- <div id="notifications" class="ui-corner-all" style="">
+            <!-- 
+                <div id="notifications" class="ui-corner-all" style="">
                     <a href="#" id="icon-notifications" class="box-item-notification notification-encomienda">
                         <span id="count-notifications" class="ui-corner-all" style="display: none"></span>
                     </a>                
-                </div> -->             
+                 </div> 
+            -->             
             </div>
             <div id="barra-session">
                 <br />             

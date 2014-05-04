@@ -2,9 +2,8 @@
 require_once '../lib/controller.php';
 require_once '../lib/view.php';
 require_once '../model/parametros.php';
-
 class parametrosController extends Controller 
-{   
+{
     var $cols = array(
                         1 => array('Name'=>'Codigo','NameDB'=>'idparametro','width'=>10,'align'=>'center'),
                         2 => array('Name'=>'Descripcion','NameDB'=>'descripcion','width'=>80,'search'=>true),                        
@@ -100,12 +99,12 @@ class parametrosController extends Controller
         $result = array();
         foreach ($value as $key => $val) 
         {
-              array_push($result, array(
-                                        "idparametro"=>$val['idparametro'],                                         
-                                        "descripcion"=> $val['descripcion']
-                                    )
-                        );
-              if ( $key > 15 ) { break; }
+          array_push($result, array(
+                                    "idparametro"=>$val['idparametro'],
+                                    "descripcion"=> $val['descripcion']
+                                )
+                    );
+          if ( $key > 15 ) { break; }
         }
         print_r(json_encode($result));
     }

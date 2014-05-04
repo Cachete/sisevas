@@ -10,37 +10,35 @@ $(document).ready(function() {
           w = $(document).width();                
           $(".head_nav").generaMenu(opciones_menu);                
       },'json');
-
       newexp();
 
            var $floatingbox = $('#site_head'); 
            if($('#body').length > 0)
            {
-            var bodyY = parseInt($('#body').offset().top);
-            var originalX = $floatingbox.css('margin-left');
-            $(window).scroll(function () 
-            {                        
-             var scrollY = $(window).scrollTop();
-             var isfixed = $floatingbox.css('position') == 'fixed';
-
-             if($floatingbox.length > 0){
-                if ( scrollY > bodyY && !isfixed ) 
-                {                                
-                          $floatingbox.stop().css({
-                            position: 'fixed',                                  
-                            marginLeft: 0,
-                            top:0
-                          });
-                  } else if ( scrollY < bodyY && isfixed ) {
-                            $floatingbox.css({
-                            position: 'absolute',
-                            top:0,
-                            marginLeft: originalX
-                  });
-               }		
-             }
-        });
-      }             
+              var bodyY = parseInt($('#body').offset().top);
+              var originalX = $floatingbox.css('margin-left');
+              $(window).scroll(function () 
+              {                        
+                   var scrollY = $(window).scrollTop();
+                   var isfixed = $floatingbox.css('position') == 'fixed';
+                   if($floatingbox.length > 0){
+                      if ( scrollY > bodyY && !isfixed ) 
+                      {                                
+                                $floatingbox.stop().css({
+                                  position: 'fixed',                                  
+                                  marginLeft: 0,
+                                  top:0
+                                });
+                        } else if ( scrollY < bodyY && isfixed ) {
+                                  $floatingbox.css({
+                                  position: 'absolute',
+                                  top:0,
+                                  marginLeft: originalX
+                        });
+                     }		
+                   }
+              });
+            }             
        
   });
 //document.oncontextmenu = function(){ return false; }

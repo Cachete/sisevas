@@ -10,10 +10,10 @@ class Spdo extends PDO
 
 	public function __construct()
 	{            
-            $dns='pgsql:dbname='.$this->dbname.';host='.$this->host.';port='.$this->port;
-            $user = $this->user;
-            $pass = $this->password;
-            parent::__construct($dns,$user,$pass);
+        $dns='pgsql:dbname='.$this->dbname.';host='.$this->host.';port='.$this->port;
+        $user = $this->user;
+        $pass = $this->password;
+        parent::__construct($dns,$user,$pass);
 	}
 	public static function singleton()
 	{

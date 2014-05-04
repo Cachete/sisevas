@@ -266,6 +266,7 @@ a.login { color : #E4F5F6;}
 .boton-edit { background-position: -20px -2px; }
 .boton-delete { background-position: -77px -2px; }
 .boton-view { background-position: -77px -23px; }
+.boton-evaluacion { background-position: -97px -23px; }
 .boton-close { background-position: -59px -2px; }
 .boton-refresh { background-position: -59px -23px; }
 .boton-print {background-position: -39px -23px; }
@@ -375,10 +376,6 @@ table.table-form td { padding: 0 2px 0 4px; margin: 0;}
 #accordian li.active ul {
 	display: block;
 }
-
-
-
-
 
 .myButton {
 	-moz-box-shadow: 0px 7px 14px -7px #276873;

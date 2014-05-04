@@ -1,32 +1,34 @@
 <?php
 include_once("Main.php");
 include_once("../lib/class.upload.php");
-
 class Personal extends Main
 {    
     function indexGrid($page,$limit,$sidx,$sord,$filtro,$query,$cols)
     {
         $sql = "SELECT
-            p.idpersonal,
-            p.dni,
-            p.nombres,
-            p.apellidos,
-            p.telefono,
-            p.direccion,
-            p.sexo,
-            e.descripcion,
-            case p.estado when 1 then 'ACTIVO' else 'INCANTIVO' end
-
-            FROM
-            personal AS p
-            INNER JOIN estado_civil AS e ON e.idestado_civil = p.idestado_civil ";
-        
+                p.idpersonal,
+                p.dni,
+                p.nombres,
+                p.apellidos,
+                p.telefono,
+                p.direccion,
+                p.sexo,
+                e.descripcion,
+                case p.estado when 1 then 'ACTIVO' else 'INCANTIVO' end,
+                '<a href=\"index.php?controller=evaluacion&idp='||p.idpersonal||'\" target=\"_blank\" class=\"btn-evaluar box-boton boton-evaluacion\"></a>'
+                FROM
+                personal AS p
+                INNER JOIN estado_civil AS e ON e.idestado_civil = p.idestado_civil ";        
         return $this->execQuery($page,$limit,$sidx,$sord,$filtro,$query,$cols,$sql);
     }
 
     function edit($id)
     {
-        $stmt = $this->db->prepare("SELECT * FROM personal WHERE idpersonal = :id");
+        $stmt = $this->db->prepare("SELECT  p.*,
+                                            c.descripcion as consult
+                                    FROM personal as p inner join consultorio as c
+                                        on c.idconsultorio = p.idarea 
+                                    WHERE p.idpersonal = :id");
         $stmt->bindParam(':id', $id , PDO::PARAM_INT);
         $stmt->execute();
         return $stmt->fetchObject();
