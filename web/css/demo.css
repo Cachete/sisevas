@@ -50,7 +50,7 @@ a:hover, a:focus {
 }
 
 section {
-	padding: 3em 0 7em;
+	padding: 3em 0 7em 0;
 }
 
 section:nth-child(even) {
