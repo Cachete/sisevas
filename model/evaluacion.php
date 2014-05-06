@@ -51,7 +51,15 @@ class evaluacion extends Main
         }
         return $data;
     }
-
+    function getCompetencias()
+    {
+        $sql = "SELECT idcompetencia,descripcion from evaluacion.competencias order by idcompetencia";
+        $stmt = $this->db->prepare($sql);
+        $stmt->execute();
+        $data = array();
+        foreach ($stmt->fetchAll() as $row) { $data[] = array('idc'=>$row[0],'des'=>$row[1]); }
+        return $data;
+    }
     function save($valores,$idp)
     {
         $fecha_reg = date('Y-m-d');        
@@ -108,9 +116,7 @@ class evaluacion extends Main
                     $stmt->bindParam(':p9',$row->valor,PDO::PARAM_INT);
                     $stmt->execute();
                 }
-
             }
-
 
             $this->db->commit();
             return array('1','Bien!',$id);
