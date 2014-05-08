@@ -110,12 +110,12 @@ class Main extends Spdo {
                         else { $sql .= " AND cast({$f} as nchar) like '%{$v}%'"; }
                     $c ++;
                 }              
-            $sql .= " order by 1 ";
+            //$sql .= " order by 1 ";
             $sth = $this->db->prepare($sql);
         }
         else 
         {
-            $sth = $this->db->prepare("SELECT * FROM {$this->table} order by 1");
+            $sth = $this->db->prepare("SELECT * FROM {$this->table} ");
         }
         $sth->execute();
         return $sth->fetchAll();

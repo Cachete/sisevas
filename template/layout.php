@@ -68,19 +68,21 @@
             <div id="barra-session">                      
                 <span class="item-top"><?php echo strtoupper($_SESSION['area']); ?></span>
             </div>
+            <!-- 
             <p>MENSAJES</p>
             <div id="barra-session">                           
                 <a href="#" class="box-item-notification notification-encomienda" title="Encomiendas Pendientes">
                     <span class="indicator-notification"></span>
                 </a>
-            <!-- 
+            
                 <div id="notifications" class="ui-corner-all" style="">
                     <a href="#" id="icon-notifications" class="box-item-notification notification-encomienda">
                         <span id="count-notifications" class="ui-corner-all" style="display: none"></span>
                     </a>                
                  </div> 
-            -->             
+                        
             </div>
+            --> 
             <div id="barra-session">
                 <br />             
                 <a href="index.php?controller=user&action=logout" class="logout">CERRAR SESION</a>                

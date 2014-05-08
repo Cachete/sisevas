@@ -18,60 +18,11 @@ $(function()
 
     $("#estados").buttonset();
 
-    /*
-    $("#frm_melamina").on('click','#newLine',function(){
-        $.get('index.php?controller=Linea&action=create',function(html)
-        {           
-           $("#box-frm-linea").empty().append(html);
-           $("#box-frm-linea").dialog("open");
-           $("#descripcion").focus();
-           
-        });
-    })
-
-    $("#box-frm-maderba").dialog({
-      modal:true,
-      autoOpen:false,
-      width:'auto',
-      height:'auto',
-      resizing:true,
-      title:'Formulario de Maderba',
-      buttons: {'Registrar Maderba':function(){save_maderba();}}
+    $("#table-per").on('click','#addDetail',function(){
+        addDetail();
     });
-
-    $("#frm_melamina").on('click','#newMaderba',function(){
-        $.get('index.php?controller=Maderba&action=create',function(html)
-        {           
-           $("#box-frm-maderba").empty().append(html);
-           $("#box-frm-maderba").dialog("open");
-           $("#descripcion").focus();
-          
-        });
-    })
-    */
-
-    /*$("#dni").autocomplete({
-        minLength: 0,
-        source: 'index.php?controller=personal&action=get&tipo=1',
-        focus: function( event, ui ) 
-        {
-            $( "#dni" ).val( ui.item.dni );
-            return false;
-        },
-        select: function( event, ui ) 
-        {
-            $("#idpersonal").val(ui.item.idpersonal);
-            $( "#dni" ).val( ui.item.dni );
-            $( "#personal" ).val( ui.item.nompersonal );                                    
-            return false;
-        }
-     }).data( "ui-autocomplete" )._renderItem = function( ul, item ) {        
-        return $( "<li></li>" )
-            .data( "item.autocomplete", item )
-            .append( "<a>"+ item.dni +" - " + item.nompersonal + "</a>" )
-            .appendTo(ul);
-      };*/
     
+    $("#table-detalle").on('click','.boton-delete',function(){var v = $(this).parent().parent().remove();})
 
 });
 
@@ -103,6 +54,24 @@ function load_formato(idtipodoc)
       $("#load_formato").empty().append(html);
     }); //'json');
   }
+
+  if(idtipodoc== 4)
+  {    
+    $("#load_formato").empty().append('Cargando...');
+    $.get('index.php','controller=tipodocumento&action=formatos3&id='+idtipodoc,function(html){    
+       
+      $("#load_formato").empty().append(html);
+    }); //'json');
+  }
+
+  if(idtipodoc== 5)
+  {    
+    $("#load_formato").empty().append('Cargando...');
+    $.get('index.php','controller=tipodocumento&action=formatos4&id='+idtipodoc,function(html){    
+       
+      $("#load_formato").empty().append(html);
+    }); //'json');
+  }
 }
 
 function load_correlativo(idtp)
@@ -130,12 +99,41 @@ function load_problema(idl)
   }
 }
 
+
+function addDetail()
+{
+  
+      bval = true;
+      bval = bval && $("#idtipo_documento").required();
+      bval = bval && $("#correlativo").required();
+      bval = bval && $("#idpersonal").required();
+
+      if(!bval) return 0;        
+        iddest =$("#idpersonal").val(),            
+        dest = $("#idpersonal option:selected").html(),
+       
+        addDetalle(iddest,dest);
+        
+}
+
+function addDetalle(iddest,dest)
+{
+        
+      var html = '';
+      html += '<tr class="tr-detalle">';
+      html += '<td>'+dest+'<input type="hidden" name="idpersonaldet[]" value="'+iddest+'" /></td>';
+      html += '<td align="center"><a class="box-boton boton-delete" href="#" title="Quitar" ></a></td>';
+      html += '</tr>';    
+      $("#table-detalle").find('tbody').append(html);
+
+}
+
 function save()
 {
   bval = true;        
   bval = bval && $( "#idtipo_problema" ).required();
   bval = bval && $( "#idareai" ).required();        
-  bval = bval && $( "#idpersonal" ).required();
+  //bval = bval && $( "#idpersonal" ).required();
   bval = bval && $( "#idcierre" ).required();
 
   var str = $("#frm_envio").serialize();

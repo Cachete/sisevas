@@ -13,23 +13,23 @@ class Recepcion extends Main
             substr(cast(t.fechafin as text),9,2)||'/'||substr(cast(t.fechafin as text),6,2)||'/'||substr(cast(t.fechafin as text),1,4),
             t.horafin,
             case t.estado when 'R' 
-                then '<a class=\"printer box-boton boton-print\" id=\"f-'||t.idtramite||'-'||t.idtipo_documento||'\" href=\" #\" title=\"Imprimir Documento\" ></a>'
+                    then '<a class=\"printer box-boton boton-print\" id=\"f-'||t.idtramite||'-'||t.idtipo_documento||'-'||d.idpersonal||'\" href=\" #\" title=\"Imprimir Documento\" ></a>'
             else '&nbsp;' end,
             case t.estado when 'T' 
-                then '<a class=\"recepcion box-boton boton-hand\" id=\"f-'||t.idtramite||'\" href=\" #\" title=\"Recepcion de Documento\" ></a>'
+                    then '<a class=\"recepcion box-boton boton-hand\" id=\"f-'||t.idtramite||'\" href=\" #\" title=\"Recepcion de Documento\" ></a>'
             else '&nbsp;' end,
             case t.derivado when 'N' 
-                then '<a class=\"derivar box-boton boton-derivar\" id=\"f-'||t.idtramite||'\" href=\" #\" title=\"Derivar Documento\" ></a>'
+                    then '<a class=\"derivar box-boton boton-derivar\" id=\"f-'||t.idtramite||'\" href=\" #\" title=\"Derivar Documento\" ></a>'
             else '<p style=\"color:green;font-weight: bold;\">DERIVADO</p>' end,
             '<input name=\"checkbox\" class=\"capacitacion\" id=\"f-'||t.idtramite||'\" type=\"checkbox\" value=\"1\" />'
-
             FROM
             evaluacion.tramite AS t
             INNER JOIN public.tipo_documento AS td ON td.idtipo_documento = t.idtipo_documento
-            LEFT JOIN public.personal AS p ON p.idpersonal = t.idpersonalresp
+            INNER JOIN evaluacion.derivaciones AS d ON t.idtramite = d.idtramite
+            INNER JOIN public.personal AS p ON p.idpersonal = d.idpersonal
     
            WHERE
-            t.idperdestinatario = ".$_SESSION['idusuario'];
+            d.idpersonal = ".$_SESSION['idusuario'];
         //echo $sql;    
         return $this->execQuery($page,$limit,$sidx,$sord,$filtro,$query,$cols,$sql);
     }
@@ -60,7 +60,7 @@ class Recepcion extends Main
                 t.asunto,
                 t.problema,
                 t.docref,
-                t.idperdestinatario,
+                t.idpersonalresp,
                 t.idtipo_documento,
                 t.codigo
                 FROM
@@ -254,9 +254,12 @@ class Recepcion extends Main
            
     }
     
-    //Imrprimir proformas
-    function printDoc($id)
-    {        
+    //Imrprimir memorandum
+    function printDoc($_G)
+    {   
+        $id= $_G['id'];
+        $idper= $_G['idper'];
+        
         $cab= "SELECT
             t.idtramite,
             r.nombres||' '||r.apellidos AS remitente,
@@ -269,17 +272,17 @@ class Recepcion extends Main
             td.descripcion,
             cd.descripcion AS cargo_d,
             cr.descripcion AS cargo_r
-            
             FROM
             evaluacion.tramite AS t
             LEFT JOIN public.personal AS r ON r.idpersonal = t.idpersonalresp
-            LEFT JOIN public.personal AS d ON d.idpersonal = t.idperdestinatario
             INNER JOIN public.tipo_documento AS td ON td.idtipo_documento = t.idtipo_documento
-            LEFT JOIN public.cargo AS cd ON cd.idcargo = d.idcargo
             LEFT JOIN public.cargo AS cr ON cr.idcargo = r.idcargo
+            INNER JOIN evaluacion.derivaciones AS de ON t.idtramite = de.idtramite
+            LEFT JOIN public.personal AS d ON d.idpersonal = de.idpersonal
+            LEFT JOIN public.cargo AS cd ON cd.idcargo = d.idcargo
     
             WHERE
-            t.idtramite= ".$id;
+            de.idpersonal=".$idper." AND t.idtramite= ".$id;
 
             $stmt = $this->db->prepare($cab);
             //$stmt->bindParam(':id', $id , PDO::PARAM_INT);
@@ -290,8 +293,12 @@ class Recepcion extends Main
             return array($cab);
     }
     
-    function printDoc2($id)
-    {        
+    //Imrprimir Servicio de no conformidad y Informe de reclamos
+    function printDoc2($_G)
+    {   
+        $id= $_G['id'];
+        $idper= $_G['idper'];
+        
         $cab= "SELECT
             t.idtramite,
             t.codigo,
@@ -337,6 +344,84 @@ class Recepcion extends Main
             $rowsc= $stmt->fetchAll();
             
             return array($cab,$rowsc);
+    }
+   
+   //Imprimir carta de cumpleaños
+    function printDoc3($_G)
+    {   
+        $id= $_G['id'];
+        $idper= $_G['idper'];
+        
+        $cab= "SELECT
+            t.idtramite,
+            r.nombres||' '||r.apellidos AS remitente,
+            d.nombres||' '||d.apellidos AS destinatario,
+            substr(cast(t.fechainicio as text),9,2)||'/'||substr(cast(t.fechainicio as text),6,2)||'/'||substr(cast(t.fechainicio as text),1,4) AS fecha,
+            t.problema,
+            t.asunto,
+            t.docref,
+            t.codigo,
+            td.descripcion,
+            cd.descripcion AS cargo_d,
+            cr.descripcion AS cargo_r
+            FROM
+            evaluacion.tramite AS t
+            LEFT JOIN public.personal AS r ON r.idpersonal = t.idpersonalresp
+            INNER JOIN public.tipo_documento AS td ON td.idtipo_documento = t.idtipo_documento
+            LEFT JOIN public.cargo AS cr ON cr.idcargo = r.idcargo
+            INNER JOIN evaluacion.derivaciones AS de ON t.idtramite = de.idtramite
+            LEFT JOIN public.personal AS d ON d.idpersonal = de.idpersonal
+            LEFT JOIN public.cargo AS cd ON cd.idcargo = d.idcargo
+    
+            WHERE
+            de.idpersonal=".$idper." AND t.idtramite= ".$id;
+
+            $stmt = $this->db->prepare($cab);
+            //$stmt->bindParam(':id', $id , PDO::PARAM_INT);
+ 
+            $stmt->execute();
+            $cab= $stmt->fetchAll();
+
+            return array($cab);
+    }
+    
+    //Imprimir carta de felicitaciones
+    function printDoc4($_G)
+    {   
+        $id= $_G['id'];
+        $idper= $_G['idper'];
+        
+        $cab= "SELECT
+            t.idtramite,
+            r.nombres||' '||r.apellidos AS remitente,
+            d.nombres||' '||d.apellidos AS destinatario,
+            substr(cast(t.fechainicio as text),9,2)||'/'||substr(cast(t.fechainicio as text),6,2)||'/'||substr(cast(t.fechainicio as text),1,4) AS fecha,
+            t.problema,
+            t.asunto,
+            t.docref,
+            t.codigo,
+            td.descripcion,
+            cd.descripcion AS cargo_d,
+            cr.descripcion AS cargo_r
+            FROM
+            evaluacion.tramite AS t
+            LEFT JOIN public.personal AS r ON r.idpersonal = t.idpersonalresp
+            INNER JOIN public.tipo_documento AS td ON td.idtipo_documento = t.idtipo_documento
+            LEFT JOIN public.cargo AS cr ON cr.idcargo = r.idcargo
+            INNER JOIN evaluacion.derivaciones AS de ON t.idtramite = de.idtramite
+            LEFT JOIN public.personal AS d ON d.idpersonal = de.idpersonal
+            LEFT JOIN public.cargo AS cd ON cd.idcargo = d.idcargo
+    
+            WHERE
+            de.idpersonal=".$idper." AND t.idtramite= ".$id;
+
+            $stmt = $this->db->prepare($cab);
+            //$stmt->bindParam(':id', $id , PDO::PARAM_INT);
+ 
+            $stmt->execute();
+            $cab= $stmt->fetchAll();
+
+            return array($cab);
     }
     
     function InsertDerivar($_P)

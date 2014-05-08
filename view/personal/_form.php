@@ -59,6 +59,7 @@
             <li><a href="#tabs-2">Información Laboral</a></li>
             <li><a href="#tabs-3">Otros</a></li>
             <li><a href="#tabs-4">File</a></li>
+            <li><a href="#tabs-5">Medica</a></li>
         </ul>
         <div id="tabs-1">
 
@@ -165,9 +166,21 @@
                     else
                         $d = "none";
                 ?>
-		<div id="queue"></div>
-		<input id="file_upload" name="file_upload" type="file" multiple="true">    
+            <div id="queue"></div>
+            <input id="file_upload" name="file_upload" type="file" multiple="true">    
                 <a target="_blank" href="files/<?php echo $obj->file ?>" style="display:<?php echo $d; ?>;cursor:pointer; font-size: 11px;" id="VerImagennn"><img src="images/pdf.png" />Abrir Archivo</a>
+        </div>
+        <div id="tabs-5">            
+            <input type="hidden" name="archivo_hc" id="archivo_hc" value="<?php echo $obj->file_hc; ?>" />
+                <?php
+                    if($obj->file_hc!="")
+                        $d = "inline";
+                    else
+                        $d = "none";
+                ?>
+            <div id="queue"></div>
+            <input id="file_uploadhc" name="file_uploadhc" type="file" multiple="true">    
+                <a target="_blank" href="files_hc/<?php echo $obj->file_hc ?>" style="display:<?php echo $d; ?>;cursor:pointer; font-size: 11px;" id="VerHc"><img src="images/pdf.png" />Abrir Archivo</a>
         </div>
 
     </div>        

@@ -12,8 +12,7 @@ class evaluacion extends Main
         $r = $stmt->fetchObject();
         $idconsultorio = $r->idarea;
 
-        $sql=" SELECT *
-               FROM evaluacion.aspectos 
+        $sql=" SELECT * FROM evaluacion.aspectos 
                WHERE idcompetencia = :c 
                     and estado = 1; ";
         $stmt = $this->db->prepare($sql);        
@@ -51,6 +50,7 @@ class evaluacion extends Main
         }
         return $data;
     }
+    
     function getCompetencias()
     {
         $sql = "SELECT idcompetencia,descripcion from evaluacion.competencias order by idcompetencia";
@@ -60,6 +60,7 @@ class evaluacion extends Main
         foreach ($stmt->fetchAll() as $row) { $data[] = array('idc'=>$row[0],'des'=>$row[1]); }
         return $data;
     }
+    
     function save($valores,$idp)
     {
         $fecha_reg = date('Y-m-d');        
@@ -127,5 +128,6 @@ class evaluacion extends Main
             return array('2',$e->getMessage().$str,'');
         }
     }
+    
 }
 ?>

@@ -17,7 +17,8 @@ class TipoproblemaController extends Controller
         $data['colsModels'] = $this->getColsModel($this->cols);        
         $data['cmb_search'] = $this->Select(array('id'=>'fltr','name'=>'fltr','text_null'=>'','table'=>$this->getColsSearch($this->cols)));
         $data['controlador'] = $_GET['controller'];
-
+        $data['titulo'] = "Tipo de Problemas";
+        
         //(nuevo,editar,eliminar,ver)
         $data['actions'] = array(true,true,true,false);
 

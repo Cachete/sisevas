@@ -162,13 +162,13 @@ class RecepcionController extends Controller
         print_r(json_encode($result));
     }
     
-    //Imprimir 
+    //Imprimir Memorandum
     public function printer_mem()
     {
         $obj = new Recepcion();
         $data = array();
         $view = new View();
-        $ro = $obj->printDoc($_GET['id']);
+        $ro = $obj->printDoc($_GET);
         $data['cab'] = $ro[0];
         //$data['detalle'] = $ro[1];
         $view->setData($data);
@@ -177,13 +177,13 @@ class RecepcionController extends Controller
         echo $view->renderPartial();
     }
     
-    //Imprimir 
+    //Imprimir Servicio de no conformidad y Informe de reclamos
     public function printer_ot()
     {
         $obj = new Recepcion();
         $data = array();
         $view = new View();
-        $ro = $obj->printDoc2($_GET['id']);
+        $ro = $obj->printDoc2($_GET);
         $data['cab'] = $ro[0];
         $data['rowsc'] = $ro[1];
         $view->setData($data);
@@ -191,6 +191,38 @@ class RecepcionController extends Controller
         $view->setLayout( '../template/empty.php' );
         echo $view->renderPartial();
     }
+    
+    //Imprimir carta de felicitaciones
+    public function printer_cartfec()
+    {
+        $obj = new Recepcion();
+        $data = array();
+        $view = new View();
+        $ro = $obj->printDoc3($_GET);
+        $data['cab'] = $ro[0];
+        //$data['rowsc'] = $ro[1];
+        $view->setData($data);
+        $view->setTemplate( '../view/recepcion/_carfecpdf.php' );
+        $view->setLayout( '../template/empty.php' );
+        echo $view->renderPartial();
+    }
+    
+    //Imprimir carta de cumpleaños
+    public function printer_cartcum()
+    {
+        $obj = new Recepcion();
+        $data = array();
+        $view = new View();
+        $ro = $obj->printDoc4($_GET);
+        $data['cab'] = $ro[0];
+        //$data['rowsc'] = $ro[1];
+        $view->setData($data);
+        $view->setTemplate( '../view/recepcion/_carcumpdf.php' );
+        $view->setLayout( '../template/empty.php' );
+        echo $view->renderPartial();
+    }
+    
+    
     
     public function derivar()
     { 

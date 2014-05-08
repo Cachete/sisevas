@@ -1,11 +1,16 @@
 <?php  
     include("../lib/helpers.php"); 
-    include("../view/header_form.php");       
+    include("../view/header_form.php"); 
+
+    $Hora_server = date('H:i:s');
+      
 ?>
 
 
 <div style="padding:10px 20px; min-width:630px; min-height:450px;">
 <form id="frm_envio" >
+
+<div id="table-per">
 
     <input type="hidden" name="controller" value="Envio" />
     <input type="hidden" name="action" value="save" />
@@ -19,37 +24,7 @@
     <br/>
     <hr />
     <br/>
-    <?php
-        if ($obj->idtipo_documento== 1) {
-        ?>
-            <label for="fecha" class="labels">Fecha Emision:</label>
-            <input type="text" name="fechainicio" id="fechainicio" class="ui-widget-content ui-corner-all text" value="<?php if($obj->fechainicio!=""){echo fdate($obj->fechainicio,'ES');} else {echo date('d/m/Y');} ?>" style="width:70px; text-align:center" readonly />
-            <input type="hidden" name="horainicio" value="<?php echo $Hora_server; ?>" />
-            <br />
-            
-            <label for="destinatario" class="labels">Remitente:</label>
-            <?php echo $remitente; ?>
-            <br/>
 
-            <label for="asunto" class="labels">Asunto:</label>
-            <input type="text" id="asunto" maxlength="150" name="asunto" onkeypress="return permite(event,'car');" class="text ui-widget-content ui-corner-all" style=" width: 230px; text-align: left;" value="<?php echo $obj->asunto; ?>" />
-            <br />
-
-            <label for="descripcion" class="labels">Descripcion:</label><br />
-            <textarea name="problema" id="problema" style="width: 80%; margin-left:16%;" class="text ui-widget-content ui-corner-all" cols="20" rows="2" ><?php echo $obj->problema; ?></textarea>
-            <br />
-
-            <label for="docref" class="labels">Doc. Referenc.:</label>
-            <input type="text" id="docref" maxlength="100" name="docref" onkeypress="return permite(event,'num_car');" class="text ui-widget-content ui-corner-all" style=" width: 230px; text-align: left;" value="<?php echo $obj->docref; ?>" />
-            <br />
-
-            <label for="destinatario" class="labels">Destinatario:</label>
-            <?php echo $personal; ?>
-
-        <?php
-        }
-    ?>
-    
     <?php
         if ($obj->idtipo_documento== 2 || $obj->idtipo_documento== 3) {
         ?>
@@ -65,8 +40,9 @@
                 <label for="nombres" class="labels">Cliente:</label>
                 <input type="text" id="nombres" maxlength="150" name="nombres" value="<?php echo $obj->nombres; ?>" onkeypress="return permite(event,'car');" class="text ui-widget-content ui-corner-all" style=" width: 150px; text-align: left;" placeholder="Nombres" />
                 <input type="hidden" id="idpaciente" name="idpaciente" value="<?php echo $obj->idpaciente; ?>" />
-                
-                
+                <input type="hidden" name="horainicio" value="<?php echo $Hora_server; ?>" />
+                <input type="hidden" name="fechainicio" id="fechainicio" value="<?php if($obj->fechainicio!=""){echo fdate($obj->fechainicio,'ES');} else {echo date('d/m/Y');} ?>" />
+            
                 <input type="text" id="apellidopat" maxlength="150" name="apellidopat" value="<?php echo $obj->appat; ?>" onkeypress="return permite(event,'car');" class="text ui-widget-content ui-corner-all" style=" width: 150px; text-align: left;" placeholder="Ap. Paterno" />
                 <input type="text" id="apellidomat" maxlength="150" name="apellidomat" value="<?php echo $obj->appat; ?>" onkeypress="return permite(event,'car');" class="text ui-widget-content ui-corner-all" style=" width: 150px; text-align: left;" placeholder="Ap. Materno" />
                 <br />
@@ -111,6 +87,75 @@
         
         <?php
         }
+            else
+            {
+        ?>
+            <label for="fecha" class="labels">Fecha Emision:</label>
+            <input type="text" name="fechainicio" id="fechainicio" class="ui-widget-content ui-corner-all text" value="<?php if($obj->fechainicio!=""){echo fdate($obj->fechainicio,'ES');} else {echo date('d/m/Y');} ?>" style="width:70px; text-align:center" readonly />
+            <input type="hidden" name="horainicio" value="<?php echo $Hora_server; ?>" />
+            <br />
+            
+            <label for="destinatario" class="labels">Remitente:</label>
+            <?php echo $remitente; ?>
+            <br/>
+
+            <label for="asunto" class="labels">Asunto:</label>
+            <input type="text" id="asunto" maxlength="150" name="asunto" onkeypress="return permite(event,'car');" class="text ui-widget-content ui-corner-all" style=" width: 230px; text-align: left;" value="<?php echo $obj->asunto; ?>" />
+            <br />
+
+            <label for="descripcion" class="labels">Descripcion:</label><br />
+            <textarea name="problema" id="problema" style="width: 80%; margin-left:16%;" class="text ui-widget-content ui-corner-all" cols="20" rows="4" ><?php echo $obj->problema; ?></textarea>
+            <br />
+
+            <label for="docref" class="labels">Doc. Referenc.:</label>
+            <input type="text" id="docref" maxlength="100" name="docref" onkeypress="return permite(event,'num_car');" class="text ui-widget-content ui-corner-all" style=" width: 230px; text-align: left;" value="<?php echo $obj->docref; ?>" />
+            <br />
+
+            <label for="destinatario" class="labels">Destinatario:</label>
+            <?php echo $personal; ?>&nbsp;&nbsp;&nbsp;&nbsp;<a href="javascript:" id="addDetail" class="fm-button ui-state-default ui-corner-all fm-button-icon-right ui-reset"><span class="ui-icon ui-icon-plusthick"></span>Agregar Destiantarios</a>
+            <br />
+            <br />
+
+            <table id="table-detalle" class="ui-widget ui-widget-content" style="margin: 0 auto; width:440px" border="0" >
+                <thead class="ui-widget ui-widget-content" >
+                    <tr class="ui-widget-header" style="height: 23px">
+                        <th align="center" width="200px">Destinatarios</th>
+                        <th width="20px">&nbsp;</th>
+                    </tr>
+                </thead>  
+                <tbody>
+                <?php
+                    if(count($rowsd)>0)
+                        {    
+                            foreach ($rowsd as $i => $r) 
+                            {
+                        ?>
+
+                        <tr class="tr-detalle" style="height: 20px">
+                            <td width="200px">
+                                <?php echo $r['destinatario']; ?>                                
+                                <input type="hidden" name="idpersonaldet[]" value="<?php echo $r['idpersonal']; ?>" />
+                            </td>
+                            <td align="center" width="20px"><a class="box-boton boton-delete" href="#" title="Quitar" ></a></td>
+                        </tr>
+
+                        <?php
+                            } 
+                        }
+                ?>                  
+                </tbody>
+                 <tfoot>
+                    <tr>               
+                        <td colspan="2">&nbsp;</td>
+                    </tr>
+                   
+                </tfoot>
+            </table>
+        <?php
+        }
     ?>
+    
+</div>
+    
 </form>
 </div>

@@ -262,12 +262,14 @@ a.login { color : #E4F5F6;}
             background-image: url('../images/sprite.png');     
             background-repeat: no-repeat;
 }
+
 .boton-new { background-position: -2px -2px; }
 .boton-edit { background-position: -20px -2px; }
 .boton-delete { background-position: -77px -2px; }
 .boton-view { background-position: -77px -23px; }
-.boton-evaluacion { background-position: -97px -23px; }
 .boton-close { background-position: -59px -2px; }
+.boton-registrado { background-position: -79px -23px; }
+.boton-recibido { background-position: -97px -23px; }
 .boton-refresh { background-position: -59px -23px; }
 .boton-print {background-position: -39px -23px; }
 .boton-anular {background-position: -39px -2px; }
@@ -275,6 +277,7 @@ a.login { color : #E4F5F6;}
 .boton-hand { background-position: -20px -23px; }
 .boton-ok { background-position: -59px -45px; }
 .boton-search { background-position: -97px -45px; }
+.boton-derivar { background-position: -95px -71px; }
 
 .box-option { width: 70px; padding: 5px; background: #fafafa; border: 1px solid #dadada; margin-left: 140px; float: left;}
 .img-option { width: 70px; margin: 0 auto; float: left; }

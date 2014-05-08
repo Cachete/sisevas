@@ -1,5 +1,5 @@
 $(function() 
-{	
+{   
     $("#list").on('click', '.recepcion', function() {
         var i = $(this).attr("id");
         i = i.split('-');
@@ -21,26 +21,35 @@ $(function()
         i = i.split('-');
         id = i[1];
         td = i[2];
-//        $.post('index.php', 'controller=recepcion&action=printer&i=' + i+'&t='+t, function(r)
-//            {
-//                if (r[0] == 1)
-//                    gridReload();
-//                else
-//                    alert('Ha ocurrido un error, vuelve a intentarlo.');
-//            }, 'json');
+        idper= i[3];
 
-        if(td!= '' & td== 1)
+        if(td== 2 || td== 3)
         {
-            var ventana=window.open('index.php?controller=recepcion&action=printer_mem&id='+id, 'Imprimir Proforma, resizable=no, scrollbars=yes, status=yes,location=yes'); 
+            var ventana=window.open('index.php?controller=recepcion&action=printer_ot&id='+id+'&idper='+idper, 'scrollbars=yes, status=yes,location=yes'); 
             ventana.focus();
-        }else
-            {
-                var ventana=window.open('index.php?controller=recepcion&action=printer_ot&id='+id, 'Imprimir Proforma, resizable=no, scrollbars=yes, status=yes,location=yes'); 
-                ventana.focus();
-            }
+        }        
+        
+        if(td== 1)
+        {
+            var ventana=window.open('index.php?controller=recepcion&action=printer_mem&id='+id+'&idper='+idper, 'scrollbars=yes, status=yes,location=yes'); 
+            ventana.focus();
+        }
+        
+        if(td== 4)
+        {
+            var ventana=window.open('index.php?controller=recepcion&action=printer_cartfec&id='+id+'&idper='+idper, 'scrollbars=yes, status=yes,location=yes'); 
+            ventana.focus();
+        }
+        
+        if(td== 5)
+        {
+            var ventana=window.open('index.php?controller=recepcion&action=printer_cartcum&id='+id+'&idper='+idper, 'scrollbars=yes, status=yes,location=yes'); 
+            ventana.focus();
+        }
+        
         
         
     });
 
-	
+    
 });

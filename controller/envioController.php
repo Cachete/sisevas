@@ -10,7 +10,7 @@ class EnvioController extends Controller
                         2 => array('Name'=>'Tipo Documento','NameDB'=>'td.descripcion','width'=>90,'search'=>true),
                         3 => array('Name'=>'Codigo','NameDB'=>'t.codigo','width'=>60),
                         4 => array('Name'=>'Fecha Inicio','NameDB'=>'t.fechainicio','align'=>'center','width'=>50),                        
-                        5 => array('Name'=>'Asunto','NameDB'=>'t.asunto','align'=>'left','width'=>200),
+                        5 => array('Name'=>'Destinatario','NameDB'=>"p.nombres||' '||p.apellidos",'align'=>'left','width'=>200),
                         6 => array('Name'=>'','NameDB'=>'','align'=>'center','width'=>20)
                      );
 
@@ -62,23 +62,25 @@ class EnvioController extends Controller
         $obj = new Envio();
         $data = array();
         $view = new View();
-        $obj = $obj->edit($_GET['id']);   
-        $data['obj'] = $obj;
-        $data['personal'] = $this->Select(array('id'=>'idpersonal','name'=>'idpersonal','text_null'=>'Seleccione...','table'=>'vista_personal','code'=>$obj->idperdestinatario));        
-        $data['remitente'] = $this->Select(array('id'=>'idperremitente','name'=>'idperremitente','text_null'=>'Seleccione...','table'=>'vista_remitente','code'=>$obj->idpersonalresp));        
-        
-        $data['tipodoc'] = $this->Select(array('id'=>'idtipo_documento','name'=>'idtipo_documento','text_null'=>':: Seleccione ::','table'=>'vista_tipodocumento','code'=>$obj->idtipo_documento));
-        $data['tipoproblema'] = $this->Select(array('id'=>'idtipo_problema','name'=>'idtipo_problema','text_null'=>'Seleccione...','table'=>'vista_tipoproblema','code'=>$obj->idtipo_problema));        
+        //$obj = $obj->edit($_GET['id']);
+        $rows = $obj->edit($_GET['id']);  
+        //$data['obj'] = $obj;
+        $data['obj'] = $rows;
+        $data['personal'] = $this->Select(array('id'=>'idpersonal','name'=>'idpersonal','text_null'=>'Seleccione...','table'=>'vista_personal','code'=>$rows->idperdestinatario));        
+        $data['remitente'] = $this->Select(array('id'=>'idperremitente','name'=>'idperremitente','text_null'=>'Seleccione...','table'=>'vista_remitente','code'=>$rows->idpersonalresp));        
+        $data['tipodoc'] = $this->Select(array('id'=>'idtipo_documento','name'=>'idtipo_documento','text_null'=>':: Seleccione ::','table'=>'vista_tipodocumento','code'=>$rows->idtipo_documento));
+        $data['tipoproblema'] = $this->Select(array('id'=>'idtipo_problema','name'=>'idtipo_problema','text_null'=>'Seleccione...','table'=>'vista_tipoproblema','code'=>$rows->idtipo_problema));        
         
         $tp= $obj->idtipo_problema;
         if ($tp == 1) {
-            $data['idareai'] = $this->Select(array('id'=>'idareai','name'=>'idareai','text_null'=>'Seleccione...','table'=>'vista_consultorio','code'=>$obj->idareai));
+            $data['idareai'] = $this->Select(array('id'=>'idareai','name'=>'idareai','text_null'=>'Seleccione...','table'=>'vista_consultorio','code'=>$rows->idareai));
         }else
             {
-                $data['idareai'] = $this->Select(array('id'=>'idareai','name'=>'idareai','text_null'=>'Seleccione...','table'=>'vista_personal','code'=>$obj->idpersonalresp));
+                $data['idareai'] = $this->Select(array('id'=>'idareai','name'=>'idareai','text_null'=>'Seleccione...','table'=>'vista_personal','code'=>$rows->idpersonalresp));
         
             }
         
+        $data['rowsd'] = $obj->getDetails($rows->idtramite,$rows->idtipo_documento);
         $view->setData($data);
         $view->setTemplate( '../view/envio/_devform.php' );
         echo $view->renderPartial();

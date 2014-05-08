@@ -6,17 +6,16 @@ require_once '../model/personal.php';
 class PersonalController extends Controller 
 {   
     var $cols = array(
-                        1 => array('Name'=>'Codigo','NameDB'=>'p.idpersonal','align'=>'center','width'=>80),
-                        2 => array('Name'=>'DNI','NameDB'=>'p.dni','align'=>'center','width'=>80),
-                        3 => array('Name'=>'Nombres','NameDB'=>'p.nombres','width'=>100,'search'=>true),
-                        4 => array('Name'=>'Apellidos','NameDB'=>'p.apellidos','width'=>150,'search'=>true),
-                        5 => array('Name'=>'Telefono','NameDB'=>'p.telefono'),
-                        6 => array('Name'=>'Direccion','NameDB'=>'p.direccion'),
-                        7 => array('Name'=>'Sexo','NameDB'=>'p.sexo','width'=>70),
-                        8 => array('Name'=>'Estado Civil','NameDB'=>'e.descripcion','align'=>'left','width'=>80),
-                        9 => array('Name'=>'Estado','NameDB'=>'p.estado','align'=>'center','width'=>'50'),
-                        10 => array('Name'=>'','NameDB'=>'','align'=>'center','width'=>'50')
-                     );
+            1 => array('Name'=>'Cod.','NameDB'=>'p.idpersonal','align'=>'center','width'=>40),
+            2 => array('Name'=>'DNI','NameDB'=>'p.dni','align'=>'center','width'=>60),
+            3 => array('Name'=>'Nombres','NameDB'=>'p.nombres','width'=>100,'search'=>true),
+            4 => array('Name'=>'Apellidos','NameDB'=>'p.apellidos','width'=>150,'search'=>true),
+            5 => array('Name'=>'Telefono','NameDB'=>'p.telefono','width'=>70),
+            6 => array('Name'=>'Direccion','NameDB'=>'p.direccion'),
+            7 => array('Name'=>'Area Trabajo','NameDB'=>'c.descripcion','width'=>100),
+            8 => array('Name'=>'Estado','NameDB'=>'p.estado','align'=>'center','width'=>60),
+            9 => array('Name'=>'','NameDB'=>'','align'=>'center','width'=>40)
+         );
 
     public function index() 
     {
@@ -220,7 +219,51 @@ class PersonalController extends Controller
             echo "KO";
         }
     }
+    
+    public function loadfilehc()
+    {
+        
+        if (!empty($_FILES)) 
+        {
+            $tempFile = $_FILES['Filedata']['tmp_name'];                          // 1
+            $fileparts = pathinfo($_FILES['Filedata']['name']);
+            $ext = $fileparts['extension'];
 
+            //$targetPath = 'doc/';  
+            $targetPath = 'files_hc/';  
+            $filetypes = array("pdf","doc","png","jpeg","jpg");
+            $flag = false;
+            foreach($filetypes as $typ)
+            {
+                if($typ==strtolower($ext))
+                {
+                        $flag = true;
+                }
+            }    
+            if($flag)
+            {
+                $targetFile =  str_replace('//','/',$targetPath).str_replace(' ','_',$_FILES['Filedata']['name']);
+                $name = str_replace(' ','_',$_FILES['Filedata']['name']);
+                if( move_uploaded_file($tempFile,$targetFile))
+                {	
+                    echo "1###".$name;
+                    chmod($targetFile, 0777);
+                }
+                else
+                {
+                    echo "0###Error";
+                }
+            }
+            else 
+            {
+                echo "0###Extension no apcetada ".$typ;
+            }    
+
+        }
+        else {
+            echo "KO";
+        }
+    }
 }
  
 

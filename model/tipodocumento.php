@@ -24,13 +24,15 @@ class Tipodocumento extends Main
     }
 
     function insert($_P ) {
-        $stmt = $this->db->prepare("INSERT INTO tipo_documento (descripcion, abreviado, estado) 
-                            VALUES(:p1,:p2,:p3)");
+        $stmt = $this->db->prepare("INSERT INTO tipo_documento (descripcion, abreviado, estado, plantilla) 
+                            VALUES(:p1,:p2,:p3,:p4)");
 
         $stmt->bindParam(':p1', $_P['descripcion'] , PDO::PARAM_STR);
         $stmt->bindParam(':p2', $_P['abreviado'] , PDO::PARAM_STR);
         $stmt->bindParam(':p3', $_P['activo'] , PDO::PARAM_INT);
-        
+        $stmt->bindParam(':p4', $_P['plantilla'] , PDO::PARAM_STR);
+
+
         $p1 = $stmt->execute();
         $p2 = $stmt->errorInfo();
         return array($p1 , $p2[2]);
@@ -41,12 +43,14 @@ class Tipodocumento extends Main
                             set 
                             descripcion = :p1, 
                             abreviado = :p2,
-                            estado = :p3 
+                            estado = :p3, 
+                            plantilla = :p4
 
                             WHERE idtipo_documento = :idtipo_documento");
         $stmt->bindParam(':p1', $_P['descripcion'] , PDO::PARAM_STR);
         $stmt->bindParam(':p2', $_P['abreviado'] , PDO::PARAM_STR);
         $stmt->bindParam(':p3', $_P['activo'] , PDO::PARAM_INT);
+        $stmt->bindParam(':p4', $_P['plantilla'] , PDO::PARAM_STR);
 
         $stmt->bindParam(':idtipo_documento', $_P['idtipo_documento'] , PDO::PARAM_INT);
         $p1 = $stmt->execute();

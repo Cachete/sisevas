@@ -12,11 +12,14 @@ class Envio extends Main
             td.descripcion,
             t.codigo,
             substr(cast(t.fechainicio as text),9,2)||'/'||substr(cast(t.fechainicio as text),6,2)||'/'||substr(cast(t.fechainicio as text),1,4),
-            t.asunto,
-            '<a class=\"printer box-boton boton-print\" id=\"f-'||t.idtramite||'-'||t.idtipo_documento||'\" href=\" #\" title=\"Imprimir Documento\" ></a>'
+            p.nombres||' '||p.apellidos AS perdestinatario,
+            '<a class=\"printer box-boton boton-print\" id=\"f-'||t.idtramite||'-'||t.idtipo_documento||'-'||d.idpersonal||'\" href=\" #\" title=\"Imprimir Documento\" ></a>'
+            
             FROM
             evaluacion.tramite AS t
-            INNER JOIN tipo_documento AS td ON td.idtipo_documento = t.idtipo_documento ";
+            INNER JOIN public.tipo_documento AS td ON td.idtipo_documento = t.idtipo_documento
+            INNER JOIN evaluacion.derivaciones AS d ON t.idtramite = d.idtramite
+            INNER JOIN public.personal AS p ON p.idpersonal = d.idpersonal ";
 
         return $this->execQuery($page,$limit,$sidx,$sord,$filtro,$query,$cols,$sql);
     }
@@ -34,28 +37,6 @@ class Envio extends Main
         $stmt1->execute();
         $row= $stmt1->fetchObject();
         $idtpdoc= $row->idtipo_documento;        
-
-        if ($idtpdoc== 1) {
-
-            $stmt = $this->db->prepare("SELECT
-                t.idtramite,
-                t.fechainicio,
-                t.idpersonalresp,
-                t.horainicio,
-                t.asunto,
-                t.problema,
-                t.docref,
-                t.idperdestinatario,
-                t.idtipo_documento,
-                t.codigo
-                FROM
-                evaluacion.tramite AS t
-                INNER JOIN tipo_documento AS td ON td.idtipo_documento = t.idtipo_documento
-                WHERE
-                t.idtramite = :id ");
-            $stmt->bindParam(':id', $id , PDO::PARAM_INT);
-            $stmt->execute();
-        }
 
         if ($idtpdoc== 2 || $idtpdoc== 3) {
             $stmt = $this->db->prepare("SELECT
@@ -90,11 +71,53 @@ class Envio extends Main
                 t.idtramite = :id ");
             $stmt->bindParam(':id', $id , PDO::PARAM_INT);
             $stmt->execute();
-        }    
+        }
+            else {
+
+            $stmt = $this->db->prepare("SELECT
+                t.idtramite,
+                t.fechainicio,
+                t.idpersonalresp,
+                t.horainicio,
+                t.asunto,
+                t.problema,
+                t.docref,
+                t.idperdestinatario,
+                t.idtipo_documento,
+                t.codigo
+                FROM
+                evaluacion.tramite AS t
+                INNER JOIN tipo_documento AS td ON td.idtipo_documento = t.idtipo_documento
+                WHERE
+                t.idtramite = :id ");
+            $stmt->bindParam(':id', $id , PDO::PARAM_INT);
+            $stmt->execute();
+        }
         
         return $stmt->fetchObject();
     }
     
+    function getDetails($id, $idtpdoc)
+    {
+
+        //echo $idtpdoc;
+        $stmt = $this->db->prepare("SELECT
+            d.idtramite,
+            d.idpersonal,
+            p.nombres||' '||p.apellidos AS destinatario
+
+            FROM
+            evaluacion.derivaciones AS d
+            INNER JOIN evaluacion.tramite AS t ON t.idtramite = d.idtramite
+            INNER JOIN public.personal AS p ON p.idpersonal = d.idpersonal
+
+            WHERE d.idtramite = :id ");
+
+        $stmt->bindParam(':id', $id , PDO::PARAM_STR);
+        $stmt->execute();
+        return $stmt->fetchAll();
+    }
+
     function insert($_P ) 
     {
         //print_r($_P) ;
@@ -112,13 +135,14 @@ class Envio extends Main
         
         /* MEMORANDUN */
         $sql = "INSERT INTO evaluacion.tramite(
-                idperdestinatario,idtipo_documento, problema, fechainicio, horainicio, idpersonalresp, 
+                idtipo_documento, problema, fechainicio, horainicio, idpersonalresp, 
                 asunto, estado, docref, codigo,derivado)
 
-            VALUES(:p1,:p2,:p3,:p5,:p6,:p7,:p8,:p9,:p10,:p11,:p12) ";
+            VALUES(:p1,:p2,:p3,:p4,:p5,:p6,:p7,:p8,:p9,:p10) ";
 
-        $stmt = $this->db->prepare($sql);
+        $st = $this->db->prepare($sql);
 
+                   
         /* INGRESAR PACIENTE NUEVO */
         $sqlcli="INSERT INTO paciente(nrodocumento,nombres,appat,apmat,direccion,telefono,celular)
                 VALUES ( :p11, :p21,:p31, :p41, :p51, :p61, :p71) ";
@@ -139,26 +163,9 @@ class Envio extends Main
             $this->db->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
             $this->db->beginTransaction();
 
-            if ($_P['idtipo_documento']== 1) {
+            if ($_P['idtipo_documento']== 2 || $_P['idtipo_documento']== 3) {
 
-                $stmt->bindParam(':p1', $_P['idpersonal'] , PDO::PARAM_STR);
-                $stmt->bindParam(':p2', $_P['idtipo_documento'] , PDO::PARAM_STR);
-                $stmt->bindParam(':p3', $_P['problema'] , PDO::PARAM_STR);
-                $stmt->bindParam(':p5', $_P['fechainicio'] , PDO::PARAM_STR);
-                $stmt->bindParam(':p6', $_P['horainicio'] , PDO::PARAM_STR);        
-                
-                $stmt->bindParam(':p7', $_P['idperremitente'] , PDO::PARAM_STR);
-                $stmt->bindParam(':p8', $_P['asunto'] , PDO::PARAM_STR);
-                $stmt->bindParam(':p9', $estado , PDO::PARAM_STR);
-                $stmt->bindParam(':p10', $_P['docref'] , PDO::PARAM_STR);
-                $stmt->bindParam(':p11', $_P['correlativo'] , PDO::PARAM_STR);
-                $stmt->bindParam(':p12', $derivado , PDO::PARAM_STR);
-
-                $stmt->execute();
-            }
-            else
-                {
-                    if ($idpaciente=='') {
+                if ($idpaciente=='') {
                                                     
                         $stmt3->bindParam(':p11', $_P['dni'] , PDO::PARAM_STR);
                         $stmt3->bindParam(':p21', $_P['nombres'], PDO::PARAM_STR);
@@ -171,6 +178,7 @@ class Envio extends Main
                         $stmt3->execute();
                         $idpaciente =  $this->IdlastInsert('paciente','idpaciente');
                     }  
+
                     $tprob= $_P['idtipo_problema'];
                     if($tprob == 1)
                     {
@@ -200,14 +208,64 @@ class Envio extends Main
                     $stmt1->bindParam(':p10', $idcon , PDO::PARAM_INT);
                     $stmt1->bindParam(':p11', $idperinvestigad , PDO::PARAM_INT);
                     $stmt1->bindParam(':p12', $derivado , PDO::PARAM_STR);
-
                     $stmt1->execute();
                     //print_r($stmt1);
+                    
+                    $id =  $this->IdlastInsert('evaluacion.tramite','idtramite');
+                    $row = $stmt1->fetchAll();
+                    
+                    $st2= $this->db->prepare(" INSERT INTO evaluacion.derivaciones( idtramite, idpersonal, fechader, 
+                    horader, capacitacion) VALUES($id ,$idperinvestigad,'$fechafin','$horafin','$derivado')" );
+                        //print_r($st2);
+                    $st2->execute();
+                                
+            }
+            else
+                {
+                    //idtipo_documento, problema, fechainicio, horainicio, idpersonalresp, 
+                    //asunto, estado, docref, codigo,derivado)
+                    //print_r($_P);
+                    //$docref=''
+                    $st->bindParam(':p1', $_P['idtipo_documento'] , PDO::PARAM_STR);
+                    $st->bindParam(':p2', $_P['problema'] , PDO::PARAM_STR);
+                    $st->bindParam(':p3', $_P['fechainicio'] , PDO::PARAM_STR);
+                    $st->bindParam(':p4', $_P['horainicio'] , PDO::PARAM_STR);        
+                    
+                    $st->bindParam(':p5', $_P['idperremitente'] , PDO::PARAM_STR);
+                    $st->bindParam(':p6', $_P['asunto'] , PDO::PARAM_STR);
+                    $st->bindParam(':p7', $estado , PDO::PARAM_STR);
+                    $st->bindParam(':p8', $_P['docref'] , PDO::PARAM_STR);
+                    $st->bindParam(':p9', $_P['correlativo'] , PDO::PARAM_STR);
+                    $st->bindParam(':p10', $derivado , PDO::PARAM_STR);
+                    $st->execute();
+
+                    $id =  $this->IdlastInsert('evaluacion.tramite','idtramite');
+                    $row = $st->fetchAll();
+
+                     /* DETALLE DE TRAMITE */
+                    
+                    foreach($_P['idpersonaldet'] as $i => $iddet)
+                    {   
+                        //echo $iddet;         
+                        //echo $id;
+                        //$st2->bindParam(':p1',$id,PDO::PARAM_INT);
+                        //$st2->bindParam(':p2',$_P['idpersonal'],PDO::PARAM_INT);
+                        //$st2->bindParam(':p3',$fechafin,PDO::PARAM_STR);
+                        //$st2->bindParam(':p4',$horafin,PDO::PARAM_STR);
+                        //$st2->bindParam(':p5',$derivado,PDO::PARAM_STR);
+                        $st2= $this->db->prepare(" INSERT INTO evaluacion.derivaciones( idtramite, idpersonal, fechader, 
+                        horader, capacitacion) VALUES($id ,$iddet,'$fechafin','$horafin','$derivado')" );
+                        //print_r($st2);
+                        $st2->execute();                                 
+                        //print_r($stmt2);
+                    }
+                
                 }
 
             $this->db->commit();            
             return array('1','Bien!',$idpaciente);
         }
+
         catch(PDOException $e) 
             {
                 $this->db->rollBack();
@@ -219,14 +277,14 @@ class Envio extends Main
     function update($_P ) 
     {
         $idtpdoc= $_P['idtipo_documento'];        
-        
+                
         $sqlm = "UPDATE evaluacion.tramite
             SET 
             idpersonalresp= :p1, 
             asunto= :p2, 
             problema= :p3, 
-            docref= :p4,
-            idperdestinatario= :p5
+            docref= :p4
+
             WHERE idtramite= :idtramite";
 
         $stmt = $this->db->prepare($sqlm);
@@ -237,50 +295,86 @@ class Envio extends Main
             problema= :p2, 
             idtipo_problema= :p3,
             idareai= :p4,
-            idperdestinatario= :p5
-            
+            idperdestinatario= :p5            
         WHERE idtramite= :idtramite";        
         
         $stmt1 = $this->db->prepare($sqlo);        
         
+
         try 
         {
             $this->db->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
             $this->db->beginTransaction();
             
-            if ($idtpdoc== 1){
+            if ($idtpdoc== 2 || $idtpdoc== 3){
                 
-                $stmt->bindParam(':p1', $_P['idperremitente'] , PDO::PARAM_INT);        
-                $stmt->bindParam(':p2', $_P['asunto'] , PDO::PARAM_STR);
-                $stmt->bindParam(':p3', $_P['problema'] , PDO::PARAM_STR);     
-                $stmt->bindParam(':p4', $_P['docref'] , PDO::PARAM_STR);
-                $stmt->bindParam(':p5', $_P['idpersonal'] , PDO::PARAM_INT);
+                $tprob= $_P['idtipo_problema'];
+                    if($tprob == 1)
+                    {
+                        $idcon= $_P['idareai'];
+                        $idperinvestigad= 0;
+
+                    }else
+                        {
+                            $idperinvestigad =$_P['idareai'];
+                            $idcon= 0;
+                        }
                 
-                $stmt->bindParam(':idtramite', $_P['idtramite'] , PDO::PARAM_INT);
-                $stmt->execute();
+                $id= $_P['idtramite'];
+                $derivado= 'N';
+                $fecha= $_P['fechainicio'];
+                $hora= $_P['horainicio'];
+                    
+                $stmt1->bindParam(':p1', $_P['idpaciente'] , PDO::PARAM_INT);        
+                $stmt1->bindParam(':p2', $_P['problema'] , PDO::PARAM_STR);
+                $stmt1->bindParam(':p3', $tprob , PDO::PARAM_INT);     
+                $stmt1->bindParam(':p4', $idcon , PDO::PARAM_INT);
+                $stmt1->bindParam(':p5', $idperinvestigad , PDO::PARAM_INT);
+                
+                $stmt1->bindParam(':idtramite', $_P['idtramite'] , PDO::PARAM_INT);
+                $stmt1->execute();
+
+                $sqld="DELETE FROM evaluacion.derivaciones
+                        WHERE idtramite= ".$id;
+                $stmt0 = $this->db->prepare($sqld);                    
+                $stmt0->execute();                    
+               
+                $st2= $this->db->prepare(" INSERT INTO evaluacion.derivaciones( idtramite, idpersonal, fechader, 
+                            horader, capacitacion) VALUES($id ,$idperinvestigad,'$fecha','$hora','$derivado')" );
+                            //print_r($st2);
+                            $st2->execute();
+
             }
                 else {
                     
-                    $tprob= $_P['idtipo_problema'];
-                        if($tprob == 1)
-                        {
-                            $idcon= $_P['idareai'];
-                            $idperinvestigad= 0;
+                    $id= $_P['idtramite'];
+                    $derivado= 'N';
+                    $fecha= $_P['fechainicio'];
+                    $hora= $_P['horainicio'];
 
-                        }else
-                            {
-                                $idperinvestigad =$_P['idareai'];
-                                $idcon= 0;
-                            }
-            
-                    $stmt1->bindParam(':p1', $_P['idpaciente'] , PDO::PARAM_INT);        
-                    $stmt1->bindParam(':p2', $_P['problema'] , PDO::PARAM_STR);
-                    $stmt1->bindParam(':p3', $tprob , PDO::PARAM_INT);     
-                    $stmt1->bindParam(':p4', $idcon , PDO::PARAM_INT);
-                    $stmt1->bindParam(':p5', $idperinvestigad , PDO::PARAM_INT);
-                    
-                    $stmt1->bindParam(':idtramite', $_P['idtramite'] , PDO::PARAM_INT);
-                    $stmt1->execute();
+                    $stmt->bindParam(':p1', $_P['idperremitente'] , PDO::PARAM_INT);        
+                    $stmt->bindParam(':p2', $_P['asunto'] , PDO::PARAM_STR);
+                    $stmt->bindParam(':p3', $_P['problema'] , PDO::PARAM_STR);     
+                    $stmt->bindParam(':p4', $_P['docref'] , PDO::PARAM_STR);
+                    //$stmt->bindParam(':p5', $_P['idpersonal'] , PDO::PARAM_INT);                    
+                    $stmt->bindParam(':idtramite', $_P['idtramite'] , PDO::PARAM_INT);
+                    $stmt->execute();
+
+                    $sqld="DELETE FROM evaluacion.derivaciones
+                        WHERE idtramite= ".$id;
+
+                    $stmt0 = $this->db->prepare($sqld);                    
+                    $stmt0->execute();
+
+                    //print_r($_P['idpersonaldet']);
+                    foreach($_P['idpersonaldet'] as $i => $iddet)
+                    {
+                        //echo $iddet;
+                        $st2= $this->db->prepare(" INSERT INTO evaluacion.derivaciones( idtramite, idpersonal, fechader, 
+                            horader, capacitacion) VALUES($id ,$iddet,'$fecha','$hora','$derivado')" );
+                            //print_r($st2);
+                            $st2->execute();
+                    }                                 
                 }                            
 
             $this->db->commit();            

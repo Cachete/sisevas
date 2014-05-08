@@ -18,7 +18,8 @@ class TipodocumentoController extends Controller
         $data['colsModels'] = $this->getColsModel($this->cols);        
         $data['cmb_search'] = $this->Select(array('id'=>'fltr','name'=>'fltr','text_null'=>'','table'=>$this->getColsSearch($this->cols)));
         $data['controlador'] = $_GET['controller'];
-
+        $data['titulo'] = "Tipo de Documento";
+        
         //(nuevo,editar,eliminar,ver)
         $data['actions'] = array(true,true,true,false);
 
@@ -129,6 +130,37 @@ class TipodocumentoController extends Controller
         $data['personal'] = $this->Select(array('id'=>'idpersonal','name'=>'idpersonal','text_null'=>'Seleccione...','table'=>'vista_personal'));        
         $view->setData($data);
         $view->setTemplate( '../view/tipodocumento/_servicio.php' );
+        echo $view->renderPartial();
+        
+    }
+
+    public function formatos3() {
+        
+        $obj = new Tipodocumento();
+        $data = array();
+        $view = new View();
+        $obj = $obj->edit($_GET['id']);
+        $data['obj'] = $obj;
+        $data['personal'] = $this->Select(array('id'=>'idpersonal','name'=>'idpersonal','text_null'=>'Seleccione...','table'=>'vista_personal'));        
+        $data['remitente'] = $this->Select(array('id'=>'idperremitente','name'=>'idperremitente','text_null'=>'Seleccione...','table'=>'vista_remitente'));        
+        
+        $view->setData($data);
+        $view->setTemplate( '../view/tipodocumento/_carfelicitaciones.php' );
+        echo $view->renderPartial();
+        
+    }
+
+    public function formatos4() {
+        $obj = new Tipodocumento();
+        $data = array();
+        $view = new View();
+        $obj = $obj->edit($_GET['id']);
+        $data['obj'] = $obj;
+        $data['personal'] = $this->Select(array('id'=>'idpersonal','name'=>'idpersonal','text_null'=>'Seleccione...','table'=>'vista_personal'));        
+         $data['remitente'] = $this->Select(array('id'=>'idperremitente','name'=>'idperremitente','text_null'=>'Seleccione...','table'=>'vista_remitente'));        
+        
+        $view->setData($data);
+        $view->setTemplate( '../view/tipodocumento/_carcumple.php' );
         echo $view->renderPartial();
         
     }

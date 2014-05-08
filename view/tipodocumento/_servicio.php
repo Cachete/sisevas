@@ -1,6 +1,6 @@
 <?php
-    $Hora = date('H:i:s');
-    $fecha = date('Y-m-d');
+$Hora = date('H:i:s');
+$fecha = date('Y-m-d');
 ?>
 
 <script type="text/javascript" src="../web/js/app/evt_form_envio.js"></script>
@@ -11,7 +11,7 @@
         //
         $("#dni").autocomplete({
             minLength: 0,
-            source: 'index.php?controller=clientes&action=get&tipo=1',
+            source: 'index.php?controller=pacientes&action=get&tipo=1',
             focus: function(event, ui)
             {
                 $("#dni").val(ui.item.dni);
@@ -36,7 +36,7 @@
     });
 </script>
 
-<div>	
+<div>   
     <div id="tabs">
         <ul style="background:#DADADA !important; border:0 !important">
             <li><a href="#tabs-1">Información Del CLiente</a></li>
@@ -46,27 +46,31 @@
         <div id="tabs-1">
 
             <fieldset>
+
+                <label for="direccion" class="labels">DNI:</label>
+                <input type="text" id="dni" maxlength="150" name="dni" placeholder="DNI" value="<?php echo $obj->dni; ?>" onkeypress="return permite(event, 'num_car');" class="text ui-widget-content ui-corner-all" style=" width: 200px; text-align: left;" />
+                <br />
+
                 <label for="nombres" class="labels">Cliente:</label>
                 <input type="text" id="nombres" maxlength="150" name="nombres" value="<?php echo $obj->nombres; ?>" onkeypress="return permite(event, 'car');" class="text ui-widget-content ui-corner-all" style=" width: 150px; text-align: left;" placeholder="Nombres" />
                 <input type="text" id="apellidopat" maxlength="150" name="apellidopat" value="<?php echo $obj->apellidopat; ?>" onkeypress="return permite(event, 'car');" class="text ui-widget-content ui-corner-all" style=" width: 150px; text-align: left;" placeholder="Ap. Paterno" />
                 <input type="text" id="apellidomat" maxlength="150" name="apellidomat" value="<?php echo $obj->apellidomat; ?>" onkeypress="return permite(event, 'car');" class="text ui-widget-content ui-corner-all" style=" width: 150px; text-align: left;" placeholder="Ap. Materno" />
+                <br />
 
                 <input type="hidden" id="idremitente" name="idremitente"  value="<?php echo $obj->idremitente; ?>" />
                 <input type="hidden" id="fechainicio" name="fechainicio"  value="<?php if ($obj->fechainicio == '') echo date('d/m/Y');
-else echo fdate($obj->fechainicio, 'ES'); ?>" />
+                else echo fdate($obj->fechainicio, 'ES'); ?>" />
                 <input type="hidden" id="horainicio" name="horainicio"  value="<?php if ($obj->horainicio == '') echo date('H:i:s');
-else echo $obj->horainicio; ?>" />
+                else echo $obj->horainicio; ?>" />
                 <br />
 
-                <label for="direccion" class="labels">DNI:</label>
-                <input type="text" id="dni" maxlength="150" name="dni" placeholder="DNI" value="<?php echo $obj->dni; ?>" onkeypress="return permite(event, 'num_car');" class="text ui-widget-content ui-corner-all" style=" width: 200px; text-align: left;" />
-
+                
                 <label for="direccion" class="labels">Domicilio:</label>
                 <input type="text" id="direccion" maxlength="150" name="direccion" placeholder="Direccion" value="<?php echo $obj->direccion; ?>" onkeypress="return permite(event, 'num_car');" class="text ui-widget-content ui-corner-all" style=" width: 200px; text-align: left;" />
-                <br />
-
+                
                 <label for="telefonos" class="labels">Telefonos:</label>
                 <input type="text" id="telefonos" maxlength="150" name="telefonos" value="<?php echo $obj->telefonos; ?>" placeholder="Telefono" onkeypress="return permite(event, 'num_car');" class="text ui-widget-content ui-corner-all" style=" width: 200px; text-align: left;"  />
+                <br />
 
                 <label for="asunto" class="labels">Celular:</label>
                 <input type="text" id="celular" maxlength="150" name="celular" value="<?php echo $obj->celular; ?>" placeholder="Celular" onkeypress="return permite(event, 'num_car');" class="text ui-widget-content ui-corner-all" style=" width: 200px; text-align: left;" />
@@ -82,7 +86,7 @@ else echo $obj->horainicio; ?>" />
                 <br />
 
                 <label for="destinatario" class="labels">Tipo :</label>
-<?php echo $tipoproblema; ?>
+                <?php echo $tipoproblema; ?>
                 <br />
 
                 <label for="destinatario" class="labels">Area o Servicio:</label>

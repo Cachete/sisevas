@@ -6,19 +6,21 @@ class Personal extends Main
     function indexGrid($page,$limit,$sidx,$sord,$filtro,$query,$cols)
     {
         $sql = "SELECT
-                p.idpersonal,
-                p.dni,
-                p.nombres,
-                p.apellidos,
-                p.telefono,
-                p.direccion,
-                p.sexo,
-                e.descripcion,
-                case p.estado when 1 then 'ACTIVO' else 'INCANTIVO' end,
-                '<a href=\"index.php?controller=evaluacion&idp='||p.idpersonal||'\" target=\"_blank\" class=\"btn-evaluar box-boton boton-evaluacion\"></a>'
-                FROM
-                personal AS p
-                INNER JOIN estado_civil AS e ON e.idestado_civil = p.idestado_civil ";        
+            p.idpersonal,
+            p.dni,
+            p.nombres,
+            p.apellidos,
+            p.telefono,
+            p.direccion,
+            c.descripcion,
+            case p.estado when 1 then 'ACTIVO' else 'INCANTIVO' end,
+            '<a href=\"index.php?controller=evaluacion&idp='||p.idpersonal||'\" target=\"_blank\" class=\"btn-evaluar box-boton boton-recibido\"></a>'
+            
+            FROM
+            public.personal AS p
+            INNER JOIN public.estado_civil AS e ON e.idestado_civil = p.idestado_civil
+            INNER JOIN public.consultorio AS c ON c.idconsultorio = p.idarea ";
+                    
         return $this->execQuery($page,$limit,$sidx,$sord,$filtro,$query,$cols,$sql);
     }
 
@@ -41,8 +43,8 @@ class Personal extends Main
         $tdoc= $_P['iddocumento_identidad'];
         $stmt = $this->db->prepare("INSERT INTO personal(iddocumento_identidad, dni, nombres, apellidos, telefono, direccion, sexo, idestado_civil,
             estado,idarea,idcargo,idperfil, usuario,clave,ruc,idespecialidad,idgradinstruccion,idtipopersonal,codessalud,
-            codafp,nrobrevete,file)
-            values(:p0,:p1,:p2,:p3,:p4,:p5,:p6,:p7,:p8,:p9,:p10,:p11,:p12,:p13,:p14,:p15,:p16,:p17,:p18,:p19,:p20,:p21)");
+            codafp,nrobrevete,file,file_hc)
+            values(:p0,:p1,:p2,:p3,:p4,:p5,:p6,:p7,:p8,:p9,:p10,:p11,:p12,:p13,:p14,:p15,:p16,:p17,:p18,:p19,:p20,:p21,:p22)");
         
         $stmt->bindParam(':p0', $tdoc , PDO::PARAM_STR);
         $stmt->bindParam(':p1', $_P['dni'] , PDO::PARAM_STR);
@@ -67,7 +69,7 @@ class Personal extends Main
         $stmt->bindParam(':p19', $_P['codafp'] , PDO::PARAM_STR);
         $stmt->bindParam(':p20', $_P['nrobrevete'] , PDO::PARAM_STR);
         $stmt->bindParam(':p21', $_P['archivo'] , PDO::PARAM_STR);
-        //$stmt->bindParam(':p22', $estado , PDO::PARAM_STR);
+        $stmt->bindParam(':p22', $_P['archivo_hc'] , PDO::PARAM_STR);
         
         $p1 = $stmt->execute();
         $p2 = $stmt->errorInfo();
@@ -94,7 +96,7 @@ class Personal extends Main
                     idgradinstruccion=:p19,
                     idtipopersonal=:p20,
                     codessalud=:p21,
-                    codafp=:p22, file=:p23
+                    codafp=:p22, file=:p23,file_hc=:p24
 
                 where idpersonal = :idpersonal";
 
@@ -122,7 +124,8 @@ class Personal extends Main
             $stmt->bindParam(':p21', $_P['codessalud'] , PDO::PARAM_STR);
             $stmt->bindParam(':p22', $_P['codafp'] , PDO::PARAM_STR);
             $stmt->bindParam(':p23', $_P['archivo'] , PDO::PARAM_STR);
-
+            $stmt->bindParam(':p24', $_P['archivo_hc'] , PDO::PARAM_STR);
+            
             $stmt->bindParam(':idpersonal', $_P['idpersonal'] , PDO::PARAM_INT);
         $p1 = $stmt->execute();
         $p2 = $stmt->errorInfo();

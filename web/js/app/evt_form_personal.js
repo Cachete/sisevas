@@ -52,6 +52,41 @@ $(function()
                         
                     }
     });
+    
+    $('#file_uploadhc').uploadify({
+            'formData'     : {
+                    'timestamp' : '44',
+                    'token'     : '33',
+                    'controller': 'Personal',
+                    'action':'loadfilehc'
+            },
+            'buttonText': 'Archivo',
+            'swf'      : 'uploadify.swf',
+            'uploader' : 'index.php?controller=Personal&action=loadfilehc',
+            onUploadSuccess : function(file, data, response) {
+                        if(response)
+                        {
+                            
+                            r = data.split("###");
+                            if(r[0]==1)
+                            {
+                                alert('El archivo fue subido correctamente');
+                                $("#archivo_hc").val(r[1]);
+                                $("#VerHc").attr("href","files_hc/"+r[1]);
+                                $("#VerHc").css("display","inline");
+                            }
+                            else 
+                            {
+                                alert(r[1]+' '+data);
+                            }                            
+                        }
+                        else 
+                        {
+                            alert("Ha ocurrido un error al intentar subir el archivo "+file.name);
+                        }
+                        
+                    }
+    });
 
 });
 
