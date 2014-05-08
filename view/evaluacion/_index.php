@@ -21,6 +21,11 @@
 			},'json')
 		});
 
+		$("#reporte_as").click(function(){
+			var idp   = $("#idpersonal").val();
+			popup('index.php?controller=evaluacion&action=reporte_detallado&idp='+idp,500,500);
+		});
+
 		var $floatingbox = $('#mp-menu'); 
            if($('.container').length > 0)
            {
@@ -137,6 +142,7 @@
 	<nav id="mp-menu" class="mp-menu">
 		<div class="mp-level">
 			<div class="title-head">
+				<h2>PERIODO: 2014-01</h2>
 				<input type="hidden" name="idpersonal" id="idpersonal" value="<?php echo $rows->idpersonal; ?>" />
 				<h1><?php echo $rows->nombres." ".$rows->apellidos; ?>					
 					<span><?php echo strtoupper($rows->consult); ?><br/></span>
@@ -153,13 +159,14 @@
 					foreach ($competencias_r as $k => $v) 
 					{
 						?>
-						<li><a class="comp-option" href="#" id="comp-<?php echo $v['idc'] ?>"><?php echo ucwords(strtolower($v['des'])); ?></a></li>
+						<li><a class="comp-option" href="#" id="comp-<?php echo $v['idc'] ?>"><?php echo ucwords(strtolower($v['des'])); ?> (<?php echo $v['percent'] ?>%)</a></li>
 						<?php	
 					}
 				?>
 			</ul>
 			<div style="text-align:center; padding:10px 0;">
-				<a href="#" id="save_as" class="myButton">Grabar Resultados</a>
+				<a href="#" id="reporte_as" class="myButton">Reporte</a>
+				<a href="#" id="save_as" class="myButton">Grabar</a>
 			</div>
 		</div>
 	</nav>

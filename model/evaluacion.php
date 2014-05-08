@@ -53,11 +53,27 @@ class evaluacion extends Main
     
     function getCompetencias()
     {
-        $sql = "SELECT idcompetencia,descripcion from evaluacion.competencias order by idcompetencia";
+        $sql = "SELECT  t1.idcompetencia,
+                    t1.descripcion,
+                    coalesce(t2.n,0)*100/t1.nro_aspectos as percent 
+                from (
+                    select c.idcompetencia, c.descripcion, count(a.idaspecto) as nro_aspectos
+                    from evaluacion.competencias as c inner join evaluacion.aspectos as a 
+                    on a.idcompetencia = c.idcompetencia 
+                    group by c.idcompetencia, c.descripcion
+                      ) as t1 left outer join 
+                      (
+                    select count(v.idaspecto) as n, a.idcompetencia
+                    from evaluacion.resultados as r inner join evaluacion.valores as v  
+                    on v.idvalor = r.idvalor
+                    inner join evaluacion.aspectos as a on a.idaspecto = v.idaspecto
+                    group by a.idcompetencia
+                      ) as t2 on t1.idcompetencia = t2.idcompetencia
+                    order by t1.idcompetencia";
         $stmt = $this->db->prepare($sql);
         $stmt->execute();
         $data = array();
-        foreach ($stmt->fetchAll() as $row) { $data[] = array('idc'=>$row[0],'des'=>$row[1]); }
+        foreach ($stmt->fetchAll() as $row) { $data[] = array('idc'=>$row[0],'des'=>$row[1],'percent'=>$row[2]); }
         return $data;
     }
     
@@ -128,6 +144,73 @@ class evaluacion extends Main
             return array('2',$e->getMessage().$str,'');
         }
     }
-    
+
+    function reporte_detallado($g)
+    {
+
+        $sql = "SELECT idarea from personal where idpersonal = :id ";
+        $stmt = $this->db->prepare($sql);
+        $stmt->bindParam(':id',$g['idp'],PDO::PARAM_INT);
+        $stmt->execute();
+        $r = $stmt->fetchObject();
+        $idconsultorio = $r->idarea;
+
+        $sql = "SELECT idcompetencia,descripcion 
+                from evaluacion.competencias order by idcompetencia";
+        $stmt = $this->db->prepare($sql);
+        $stmt->execute();
+        $data = array();
+        $c = 0;
+        foreach ($stmt->fetchAll() as $row) 
+        {
+            $data[$c] = array(
+                            'idc'=>$row[0],
+                            'des'=>$row[1],
+                            'res'=>array()
+                           );
+
+            $s = "SELECT  t1.idaspecto,
+                        t1.aspecto,
+                        coalesce(t2.valor,0) as valor,
+                        t1.valor_max
+                    FROM (
+                    SELECT  a.idaspecto as idaspecto,
+                        a.descripcion as aspecto,
+                        coalesce(max(v.valor),0) as valor_max
+                    FROM evaluacion.valores as v RIGHT OUTER JOIN evaluacion.aspectos as a on
+                    a.idaspecto = v.idaspecto and v.idperiodo = :idper and v.idconsultorio = :idcon
+                    WHERE a.idcompetencia = :idcom
+                    GROUP BY a.idaspecto,a.descripcion ) as t1
+
+                    LEFT OUTER JOIN
+
+                    (SELECT  a.idaspecto as idaspecto,
+                        a.descripcion as aspecto,   
+                        r.valor as valor
+                    FROM    evaluacion.resultados as r INNER JOIN 
+                        evaluacion.valores as v on v.idvalor = r.idvalor and r.estado = 1
+                        INNER JOIN evaluacion.aspectos as a on a.idaspecto = v.idaspecto    
+                    WHERE v.idconsultorio = :idcon AND a.idcompetencia = :idcom and v.idperiodo = :idper) as t2 on t1.idaspecto = t2.idaspecto
+
+                    ORDER BY t1.idaspecto";
+            $Q = $this->db->prepare($s);
+            $Q->bindParam(':idcon',$idconsultorio,PDO::PARAM_INT);
+            $Q->bindParam(':idcom',$row[0],PDO::PARAM_INT);
+            $Q->bindParam(':idper',$g['idp'],PDO::PARAM_INT);
+            $Q->execute();
+            foreach ($Q->fetchAll() as $r) 
+            {
+                $data[$c]['res'][] = array('idaspecto'=>$r[0],
+                                            'aspecto'=>$r[1],
+                                            'valor'=>$r[2],
+                                            'valor_max'=>$r[3]);
+            }
+            $c += 1;
+        }
+
+
+
+        return $data;
+    }
 }
 ?>

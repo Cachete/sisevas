@@ -38,5 +38,18 @@ class evaluacionController extends Controller
         $resp = $obj->save($v,$_POST['idp']);
         print_r(json_encode($resp));
     }
+    public function reporte_detallado()
+    {
+        $obj = new evaluacion();
+        $data = array();
+        $result = $obj->reporte_detallado($_GET);
+        $data['rows'] = $result;
+        
+        $view = new View();
+        $view->setData($data);
+        $view->setTemplate('../view/evaluacion/_reporte.php');
+        $view->setLayout('../template/empty.php');
+        return $view->render();
+    }
 }
 ?>
